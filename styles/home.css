@@ -190,3 +190,11 @@ input {
 .navright:hover{
     cursor: pointer;
 }
+
+#homePage{
+    position: absolute;
+    top: 40px; left: 40px;
+    background: none;
+    border : none;
+    cursor: pointer;
+}
