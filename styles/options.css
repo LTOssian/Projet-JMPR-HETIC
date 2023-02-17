@@ -1,0 +1,85 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url("../assets/AdobeStock_566252812.png");
+    background-size: 100vw 100vh;
+    background-position: left right top bottom;
+    font-family: 'Inter', sans-serif;
+    background-repeat: no-repeat;
+}
+
+#page-title {
+    font-family: 'VT323', sans-serif;
+    font-size: 200px;
+    color: #FFFFFF;
+    -webkit-text-stroke: 0.01px #1E1E1E;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+#subtitle {
+    color: #FFFFFF;
+    -webkit-text-stroke: 1px #1E1E1E;
+    text-shadow: px 2px 5px rgba(0, 0, 0, 0.5);
+ }
+
+ #container{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+}
+#option-container {
+    width: 70%;
+    height: 60%;
+    border: 2px solid #5D6D8C80;
+    background-color: #FAFAFAB3;
+    position: relative;
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#option-container-box {
+    width: 80%;
+    height: 80%;
+    border: 2px solid #5D6D8C80;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 80px;
+    z-index: 1;
+}
+
+.btn {
+    width: 10vw;
+    height: 5vh;
+    border-radius: 4px;
+    position: sticky;
+    left: 35vw;
+}
+
+.modify-keybind-container {
+    display: flex;
+    align-items: center;
+}
+
+#img {
+    position: absolute;
+    left: 57%;
+    z-index: 0;
+}
+
+#img-svg {
+    width: 80%;
+}
