@@ -29,18 +29,25 @@ class HomePage {
         </div>
             
             <div class='item3'>
-        <button class="carousel" id="prevName"><img src="../assets/chevron-left.svg" alt="left navigation" ></button>
-    
-            <button id="button5">NIVEAU 1</button>
-            <button class="carousel" id="nextName"><img src="../assets/chevron-right.svg" alt="right navigation"></button>
-    
+                <div class="carrousel">
+                    <button class="carousel btn" id="prevName"><img src="../assets/chevron-left.svg" alt="left navigation" ></button>
+                    <button id="button5" class="btn">Aucun niveau</button>
+                    <button class="carousel btn" id="nextName"><img src="../assets/chevron-right.svg" alt="right navigation"></button>
+                </div>
+                
             <input id="loadbutton" type="file"></input>
-            <label for="loadbutton" class="button1">LOAD</label>
-            <a href="https://ltossian.github.io/map-editor-hetic/" class="button2">EDITOR</a>
-            <button class="button3" id="optionPage">OPTIONS</button>
-            <a href="https://obamasixgaming.github.io/Credit-page1/" class="button4">CREDITS</a>
+            <label for="loadbutton" class="button1 btn">LOAD</label>
+            <a href="https://ltossian.github.io/map-editor-hetic/" class="button2 btn">EDITOR</a>
+            <button class="button3 btn" id="optionPage">OPTIONS</button>
+            <div class="basPage">
+              <a href="https://obamasixgaming.github.io/Credit-page1/" class="button4 btn">CREDITS</a>
+              <button class="btn" id="scorePage">
+              <img src="./assets/Trophy.png" width="100px" >
+            </button>
         </div>
-        <button id="scorePage">LEADERBORD</button>
+        </div>
+        
+        
     </div>
         `
         this.css = `
@@ -65,12 +72,15 @@ class HomePage {
     }
 
     mount () {
+        console.log(this.stages)
         this.updateCSS();
         this.updateHTML();
+        this.methods();
     }
 
     methods () {
         this.loadStage();
+        this.updateCarousel();
         this.carouselEvents();
         this.scoreRoute();
         this.optionRoute();
@@ -94,7 +104,7 @@ class HomePage {
                     fReader.onload = () => {
                         const content = JSON.parse(fReader.result);
                         console.log(content)
-                        this.stages.splice(0, 0,new Stage(content["title"], content))
+                        this.stages.splice(this.stages.length-1, 0,new Stage(content["title"], content))
                         console.log(this.stages)
                         this.updateCarousel()
                     }
@@ -158,12 +168,15 @@ class HomePage {
             options.methods();
         })
     }
+    
 }
 
 
 class LeaderBoard {
     constructor() {
         this.html = `
+             <button id="LeaderBoardToHomePage"><img src="assets/homeIcon.svg" alt="Home page"></button>
+
             <div class="container">
                 
                 <h1>LEADERBOARD</h1>
@@ -215,6 +228,16 @@ class LeaderBoard {
 
     methods () {
         this.displayButton()
+        this.homeRoute()
+
+    }
+    
+    homeRoute(){
+       let goHome = document.querySelector('#LeaderBoardToHomePage')
+        goHome.addEventListener('click',()=>{
+            this.unmount()
+            home.mount()
+        })
     }
     
     scoreboard2(stage){
@@ -339,7 +362,40 @@ class LeaderBoard {
 class Options {
     constructor() {
         this.html = `
-        <h1>Hello</h1>
+        <button id="optionsToHomePage"><img src="./assets/homeIcon.svg" alt="Home page"></button>
+        <div id="container">
+        <h2 id="page-title">Options</h2>
+        <div id="option-container">
+            <div id="option-container-box">
+                <h3 id="subtitle">Keybinds</h3>
+                <div id="jump-keybind-container" class="modify-keybind-container">
+                    <label for="jump-keybind-modifier">Jump: </label>
+                    <input type="button" class="btn" value="ArrowUp" id="jump-keybind-modifier">
+                </div>
+
+                <div id="crouch-keybind-container" class="modify-keybind-container">
+                    <label for="crouch-keybind-modifier">Crouch:</label>
+                    <input type="button" class="btn" value="ArrowDown" id="crouch-keybind-modifier">
+                </div>
+
+                <div id="pause-keybind-container" class="modify-keybind-container">
+                    <label for="pause-keybind-modifier">Pause:</label>
+                    <input type="button" class="btn" value="Escape" id="pause-keybind-modifier">
+                </div>
+
+                <div id="mute-keybind-container" class="modify-keybind-container">
+                    <label for="mute-keybind-modifier">Mute music:</label>
+                    <input type="button" class="btn" value="m" id="mute-keybind-modifier">
+                </div>
+
+                <button id="default-button" class="btn">Default</button>
+
+                <div id="img">
+                    <img src="./assets/gear.png" alt="engrenage" id="img-svg">
+                </div>
+            </div>
+        </div>
+    </div>
         `;
         this.css = `
         <head>
@@ -374,13 +430,54 @@ class Options {
         document.querySelector('body').innerHTML = "";
     }
     methods() {
-
+        this.homeRoute();
+        this.loadEvents()
     }
 
+    homeRoute () {
+        document.getElementById('optionsToHomePage').addEventListener('click', (e) => {
+            this.unmount();
+            home.mount();
+        })
+    }
+
+    checkKey (currentKey) {
+        const buttonsToCheck = [this.jumpKey, this.crouchKey, this.pauseKey, this.musicStatus]
+        buttonsToCheck.forEach((button) => {
+            if (button == currentKey) {
+                console.error('Cette clé est déjà assignée.');
+                return false;
+            }
+        })
+        return true;    
+    }
+
+    loadEvents () {
+        document.getElementById('jump-keybind-modifier').addEventListener('click', (e) => {
+            let changed = false;
+            if (!changed) {
+                document.addEventListener('keydown', (e) => {
+                    if (this.checkKey(e.key) == false) {
+                        document.getElementById('jump-keybind-modifier').style.color = 'red';
+                        setTimeout(() => {
+                            document.getElementById('jump-keybind-modifier').style.color = 'black';
+                        }, 1000);
+                        return
+                    } else {
+                        if (!changed) {
+                            document.getElementById('jump-keybind-modifier').value = e.key;
+                            this.jumpKey = e.key;
+                            changed = true;
+                        }
+                    }        
+                })
+            } 
+        })
+    }
 }
 
 const score = new LeaderBoard();
 const options = new Options();
 const home = new HomePage();
+
 home.mount();
-home.methods();

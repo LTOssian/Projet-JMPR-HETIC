@@ -110,6 +110,12 @@ hr{
     background-color: rgba(217, 217, 217, 0.4);
     border-radius: 20px 20px 5px 5px;
     margin: 0px 170px 0px;
+    
+}
+#LeaderBoardToHomePage{
+    background-color: none;
+    background: none;
+    border-radius: none;
 }
 
 @media screen and (max-width: 1023px){
@@ -146,4 +152,5 @@ hr{
         justify-content: center;
         border-radius: 10px;
     }
+
 }
