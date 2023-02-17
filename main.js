@@ -30,9 +30,9 @@ class HomePage {
             
             <div class='item3'>
                 <div class="carrousel">
-                    <button class="carousel btn" id="prevName"><img src="../assets/chevron-left.svg" alt="left navigation" ></button>
+                    <button class="carousel btn" id="prevName"><img src="./assets/chevron-left.svg" alt="left navigation" ></button>
                     <button id="button5" class="btn">Aucun niveau</button>
-                    <button class="carousel btn" id="nextName"><img src="../assets/chevron-right.svg" alt="right navigation"></button>
+                    <button class="carousel btn" id="nextName"><img src="./assets/chevron-right.svg" alt="right navigation"></button>
                 </div>
                 
             <input id="loadbutton" type="file"></input>
