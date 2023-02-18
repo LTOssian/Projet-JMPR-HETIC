@@ -15,10 +15,11 @@ body {
 
 #page-title {
     font-family: 'VT323', sans-serif;
-    font-size: 200px;
+    font-weight: 400;
+    font-size: 150px;
     color: #FFFFFF;
-    -webkit-text-stroke: 0.01px #1E1E1E;
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+    text-shadow: 10px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
+    1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
 }
 
 #subtitle {
@@ -70,6 +71,10 @@ body {
     position: sticky;
     left: 35vw;
 }
+.btn:focus {
+    border: 2px solid green;;
+}
+
 
 .modify-keybind-container {
     display: flex;
