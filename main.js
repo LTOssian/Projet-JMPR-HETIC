@@ -88,7 +88,7 @@ class HomePage {
         this.carouselEvents();
         this.scoreRoute();
         this.optionRoute();
-        this.RunnerRoute();
+        this.runnerRoute();
 
     }
 
@@ -165,6 +165,18 @@ class HomePage {
             this.unmount;
             options.mount();
             options.methods();
+        })
+    }
+
+    runnerRoute () {
+        document.querySelector('#levelName').addEventListener('click', (e) => {
+            if (this.stages.length > 0) {
+                this.unnmount;
+                runner.mount();
+                runner.methods();
+            } else {
+                console.error('Importez une map pour jouer')
+            }
         })
     }
     
