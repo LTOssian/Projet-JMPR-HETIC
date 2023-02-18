@@ -47,9 +47,9 @@ body {
 h1 {
     font-family: 'VT323', sans-serif;
     font-weight: 400;
-    font-size: 5rem;
+    font-size: 4rem;
     color: var(--c_white);
-    text-shadow: 10px 0 var(--c_black), -2px 0 var(--c_black), 0 2px var(--c_black), 0 -2px var(--c_black), 2px 2px var(--c_black), -2px -2px var(--c_black), 2px -2px var(--c_black), -2px 2px var(--c_black);
+    text-shadow: 8px 0 var(--c_black), -2px 0 var(--c_black), 0 2px var(--c_black), 0 -2px var(--c_black), 2px 2px var(--c_black), -2px -2px var(--c_black), 2px -2px var(--c_black), -2px 2px var(--c_black);
     cursor: default;
     text-align: center;
 }
@@ -65,13 +65,34 @@ h1 span:hover {
     color: var(--c_primary);
     bottom: 10px;
 }
-
-/* PLAY PAGE */
-#play .title{
-    height: 15vh;
+#runnerToHomePage {
+    width: 30px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    top: .5rem;
+    position: relative;
 }
 
-#play .wrapper{
+
+#optionsDisplay {
+    font-family: 'VT323', sans-serif;
+    font-size: 1rem;
+    text-align: center;
+    padding: 1rem;
+}
+
+#optionsDisplay strong {
+    color:#B85156;
+    text-shadow: 2px 0 var(--c_black), -2px 0 var(--c_black), 0 2px var(--c_black), 0 -2px var(--c_black), 2px 2px var(--c_black), -2px -2px var(--c_black), 2px -2px var(--c_black), -2px 2px var(--c_black);
+
+
+}
+
+/* PLAY PAGE */
+
+ .wrapper{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -80,7 +101,7 @@ h1 span:hover {
     width: 100%;
 }
 
-#play .viewgame{
+ .viewgame{
     background-color: var(--c_white);
     border: 3px solid var(--c_black);
     width: var(--w_viewgame);
@@ -90,7 +111,7 @@ h1 span:hover {
     box-shadow: 10px 10px var(--c_black), -2px 0 var(--c_black), 0 2px var(--c_black), 0 -2px var(--c_black), 2px 2px var(--c_black), -2px -2px var(--c_black), 2px -2px var(--c_black), -2px 2px var(--c_black);
 }
 
-#play .player{
+ .player{
     height: 20%;
     width: 8%;
     background-image: url('../img/p_wait.png');
@@ -100,21 +121,21 @@ h1 span:hover {
     left: 2%;
 }
 
-#play .playerrunning{
+ .playerrunning{
     background : center / cover no-repeat url('../img/p_run.gif');
 }
 
-#play .jumping{
+ .jumping{
     animation: playerJump 0.5s linear infinite;
     background-image: url('../img/p_jump.png');
     background-size: cover; 
 } 
 
-#play .crouching{
+ .crouching{
     background : center / cover no-repeat url('../img/p_crounch.png');
 }
 
-#play .dead{
+ .dead{
     background : center / cover no-repeat url('../img/p_dead.png');
 }
 
@@ -130,12 +151,12 @@ h1 span:hover {
     }
 }
 
-#play #block{
+ #block{
     position: absolute;
     right: -10%;
 }
 
-#play #block.B{
+ #block.B{
     height: 10%;
     width: 10%;
     background-image: url('../img/rat.gif');
@@ -143,7 +164,7 @@ h1 span:hover {
     bottom: var(--b_player);
 }
 
-#play #block.C{
+ #block.C{
     height: 20%;
     width: 10%;
     background-image: url('../img/pigeon.gif');
@@ -151,7 +172,7 @@ h1 span:hover {
     top: 50%;
 }
 
-#play .spawn{
+ .spawn{
     animation: blockSpawn 1s linear infinite;
 }
 
@@ -163,8 +184,8 @@ h1 span:hover {
     }
 }
 
-#play .road{
-    background-image: url('../img/backgroung_game.png');
+ .road{
+    background-image: url('../Runner_assets/img/backgroung_game.png');
     background-size: contain;
     width: calc(var(--w_viewgame) * 20);
     height: 100%;
@@ -173,7 +194,7 @@ h1 span:hover {
     left: 0;
 }
 
-#play .running{
+ .running{
     animation: roadAnimate 20s linear infinite;
 }
 
@@ -185,7 +206,8 @@ h1 span:hover {
     }
 }
 
-#play .score{
+ .score{
+    font-family: 'VT323', sans-serif;
     height: auto;
     width: auto;
     position: absolute;
@@ -198,17 +220,15 @@ h1 span:hover {
     border-radius: 25px;
 }
 
-#play .gameOver{
+.gameOver{
     display: none;
     position: absolute;
     font-size: 10rem;
     color: var(--c_primary_dark);
-    font-family: 'VT323', sans-serif;
     top: 30%;
     left: 22%;
 }
-
-#play .startGame{
+    .startGame{
     display: block;
     position: absolute;
     font-size: 5rem;
@@ -217,12 +237,10 @@ h1 span:hover {
     top: 30%;
     left: 22%;
 }
-
-#play .GO{
+    .GO{
     text-shadow: 10px 0 var(--c_white), -2px 0 var(--c_white), 0 2px var(--c_white), 0 -2px var(--c_white), 2px 2px var(--c_white), -2px -2px var(--c_white), 2px -2px var(--c_white), -2px 2px var(--c_white);
 }
-
-#play .PS{
+    .PS{
     position: absolute;
     font-size: 2rem;
     color: var(--c_black);
@@ -231,12 +249,10 @@ h1 span:hover {
     left: 20%;
     text-shadow: -2px 0 var(--c_white), 0 2px var(--c_white), 0 -2px var(--c_white), 2px 2px var(--c_white), -2px -2px var(--c_white), 2px -2px var(--c_white), -2px 2px var(--c_white);
 }
-
-#play .pause{
+    .pause{
     animation-play-state: paused;
 }
-
-#play .menu{
+    .menu{
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -247,8 +263,7 @@ h1 span:hover {
     background-color: var(--c_primary_light_alpha);
     position: relative;
 }
-
-#play .menu button{
+    .menu button{
     font-family: 'VT323', sans-serif;
     font-size: 2rem;
     padding: 10px;
@@ -257,8 +272,7 @@ h1 span:hover {
     background-color: var(--c_white);
     border: 1px solid var(--c_primary);
 }
-
-#play .menu button:hover{
+    .menu button:hover{
     cursor: pointer;
     color: var(--c_white);
     background-color: var(--c_primary);
@@ -271,8 +285,8 @@ h1 span:hover {
         --w_viewgame : calc(1280px / 2);
         --h_viewgame : calc(720px / 2);
     }
-
-    #play .gameOver{
+    
+    .gameOver{
         font-size: 5rem;
     }
 }
@@ -282,18 +296,20 @@ h1 span:hover {
         --w_viewgame : calc(1280px / 4);
         --h_viewgame : calc(720px / 4);
     }
-
-    #play .gameOver{
+    h1 {
+        font-size: 3rem;
+    }
+    .gameOver{
         font-size: 2.5rem;
     }
 
-    #play .menu button{
+    .menu button{
         font-size: 1rem;
     }
 }
 
 @media screen and (max-height: 500px), (max-width: 440px){
-    #play .title{
+    .title{
         display: none;
     }
 }
