@@ -1,3 +1,10 @@
+console.warn('Importez une map pour jouer')
+console.warn('Créez une map dans l\'éditeur pour l\'importer')
+console.warn('Vérifiez vos touches dans la page option')
+console.warn('Observez le classement en cliquant sur le trophée')
+
+
+
 class Stage {
     constructor(name, jsonMap){
         this.name = name
@@ -14,40 +21,38 @@ class HomePage {
     constructor() {
         this.html = `
         <div id="home">
-        <div class="title">
-            <p class="hovertitle">P</p>
-            <p class="hovertitle">A</p>
-            <p class="hovertitle">R</p>
-            <p class="hovertitle">I</p>
-            <p class="hovertitle">S</p>
-            <p class="hovertitle">R</p>
-            <p class="hovertitle">U</p>
-            <p class="hovertitle">N</p>
-            <p class="hovertitle">N</p>
-            <p class="hovertitle">E</p>
-            <p class="hovertitle">R</p>
-        </div>
-            
-            <div class='item3'>
-                <div class="carrousel">
-                    <button class="carousel btn" id="prevName"><img src="./assets/chevron-left.svg" alt="left navigation" ></button>
-                    <button id="button5" class="btn">Aucun niveau</button>
-                    <button class="carousel btn" id="nextName"><img src="./assets/chevron-right.svg" alt="right navigation"></button>
-                </div>
+            <span id="currentLoads">Currently 0 level(s) loaded</span>
+
+            <div id="title">
+                <p>P</p>
+                <p>A</p>
+                <p>R</p>
+                <p>I</p>
+                <p>S</p>
+                <p>R</p>
+                <p>U</p>
+                <p>N</p>
+                <p>N</p>
+                <p>E</p>
+                <p>R</p>
+            </div>
                 
-            <input id="loadbutton" type="file"></input>
-            <label for="loadbutton" class="button1 btn">LOAD</label>
-            <a href="https://ltossian.github.io/map-editor-hetic/" target="_blank" class="button2 btn">EDITOR</a>
-            <button class="button3 btn" id="optionPage">OPTIONS</button>
-            <div class="basPage">
-              <a href="https://obamasixgaming.github.io/Credit-page1/" target="_blank" class="button4 btn">CREDITS</a>
-              <button class="btn" id="scorePage">
-              <img src="./assets/Trophy.png" width="100px" >
-            </button>
-        </div>
-        </div>
-        
-        
+            <div id="carousel">
+                <button class="carouselBtn" id="prevName"><img src="./assets/chevron-left.svg" alt="left navigation" width="50px"></button>
+                <button id="levelName">Aucun niveau</button>
+                <button class="carouselBtn" id="nextName"><img src="./assets/chevron-right.svg" alt="right navigation" width="50px"></button>
+            </div>
+            <div id="navButtons">
+                <input id="loadbutton" type="file"></input>
+                <label for="loadbutton" class="btn">LOAD</label>
+                <a href="https://ltossian.github.io/map-editor-hetic/" target="_blank" class="button2 btn">EDITOR</a>
+                <button class="btn" id="optionPage">OPTIONS</button>
+                <a href="https://obamasixgaming.github.io/Credit-page1/" target="_blank" class="button4 btn">CREDITS</a>
+                <button class="btn" id="scorePage">
+                    <img src="./assets/Trophy.png" width="100px" >
+                </button>
+            </div>
+        </div>  
     </div>
         `
         this.css = `
@@ -72,7 +77,6 @@ class HomePage {
     }
 
     mount () {
-        console.log(this.stages)
         this.updateCSS();
         this.updateHTML();
         this.methods();
@@ -103,23 +107,15 @@ class HomePage {
                     const fReader = new FileReader();
                     fReader.onload = () => {
                         const content = JSON.parse(fReader.result);
-                        console.log(content)
                         this.stages.splice(this.stages.length-1, 0,new Stage(content["title"], content))
-                        console.log(this.stages)
                         this.updateCarousel()
+                        document.querySelector('#currentLoads').innerHTML = `Currently ${this.stages.length} level(s) loaded`
                         this.currentStage = this.stages.length - 1
+                        
                     }
                     fReader.readAsText(file);
                 }
-                new Promise(function(resolve) {
-                    setTimeout(() => {
-                        console.log(inputFile.files);
-                        resolve();
-                    }, 1000);
-                  })
-                  .then(() => {
-                    inputFile = window._protected_reference = undefined;
-                  });
+                inputFile = window._protected_reference = undefined;
             })
             inputFile.click();
         })        
@@ -127,9 +123,9 @@ class HomePage {
 
     updateCarousel () {
             if (this.stages.length) {
-                document.getElementById('button5').innerHTML = this.stages[this.currentStage].name;
-            } else {
-                console.log('Veuillez importer une map')
+                document.getElementById('levelName').innerHTML = this.stages[this.currentStage].name;
+                document.getElementById('carousel').style.background = `url(${this.stages[this.currentStage].jsonData["assets"]["background"]})`;
+
             }
         }        
     carouselEvents () {
@@ -138,7 +134,7 @@ class HomePage {
                 console.error('Vous êtes au premier niveau')
                 return
             } else {
-                this.updateCarousel(this.stages)
+                this.updateCarousel()
                 this.currentStage--;
             }
         })
