@@ -114,7 +114,7 @@ h1 span:hover {
  .player{
     height: 20%;
     width: 8%;
-    background-image: url('../img/p_wait.png');
+    background-image: url('../Runner_assets/img/p_wait.png');
     background-size: cover;
     position: absolute;
     bottom: var(--b_player);
@@ -122,21 +122,21 @@ h1 span:hover {
 }
 
  .playerrunning{
-    background : center / cover no-repeat url('../img/p_run.gif');
+    background : center / cover no-repeat url('../Runner_assets/img/p_run.gif');
 }
 
  .jumping{
     animation: playerJump 0.5s linear infinite;
-    background-image: url('../img/p_jump.png');
+    background-image: url('../Runner_assets/img/p_jump.png');
     background-size: cover; 
 } 
 
  .crouching{
-    background : center / cover no-repeat url('../img/p_crounch.png');
+    background : center / cover no-repeat url('../Runner_assets/img/p_crounch.png');
 }
 
  .dead{
-    background : center / cover no-repeat url('../img/p_dead.png');
+    background : center / cover no-repeat url('../Runner_assets/img/p_dead.png');
 }
 
 @keyframes playerJump{
@@ -159,7 +159,7 @@ h1 span:hover {
  #block.B{
     height: 10%;
     width: 10%;
-    background-image: url('../img/rat.gif');
+    background-image: url('../Runner_assets/img/rat.gif');
     background-size: contain;
     bottom: var(--b_player);
 }
@@ -167,7 +167,7 @@ h1 span:hover {
  #block.C{
     height: 20%;
     width: 10%;
-    background-image: url('../img/pigeon.gif');
+    background-image: url('../Runner_assets/img/pigeon.gif');
     background-size: contain;
     top: 50%;
 }
