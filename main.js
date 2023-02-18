@@ -107,6 +107,7 @@ class HomePage {
                         this.stages.splice(this.stages.length-1, 0,new Stage(content["title"], content))
                         console.log(this.stages)
                         this.updateCarousel()
+                        this.currentStage = this.stages.length - 1
                     }
                     fReader.readAsText(file);
                 }
@@ -441,38 +442,93 @@ class Options {
         })
     }
 
-    checkKey (currentKey) {
+    checkKey (typedKey) {
         const buttonsToCheck = [this.jumpKey, this.crouchKey, this.pauseKey, this.musicStatus]
+        let currentKeyStatus = true
         buttonsToCheck.forEach((button) => {
-            if (button == currentKey) {
-                console.error('Cette clé est déjà assignée.');
-                return false;
+            if (button == typedKey) {
+                console.error('Cette touche est déjà assignée.')
+                currentKeyStatus = false;
             }
         })
-        return true;    
+        return currentKeyStatus;  
     }
 
     loadEvents () {
-        document.getElementById('jump-keybind-modifier').addEventListener('click', (e) => {
-            let changed = false;
-            if (!changed) {
-                document.addEventListener('keydown', (e) => {
-                    if (this.checkKey(e.key) == false) {
-                        document.getElementById('jump-keybind-modifier').style.color = 'red';
-                        setTimeout(() => {
-                            document.getElementById('jump-keybind-modifier').style.color = 'black';
-                        }, 1000);
-                        return
-                    } else {
-                        if (!changed) {
-                            document.getElementById('jump-keybind-modifier').value = e.key;
+        
+        this.generalEvents(document.getElementById('jump-keybind-modifier'), 'jump');
+        this.generalEvents(document.getElementById('crouch-keybind-modifier'), 'crouch');
+        this.generalEvents(document.getElementById('pause-keybind-modifier'), 'pause');
+        this.generalEvents(document.getElementById('mute-keybind-modifier'), 'mute');
+        
+        document.getElementById("default-button").addEventListener('click', this.loadDefaultKeys)
+        
+    }
+    loadDefaultKeys () {
+            this.jumpKey = 'ArrowUp';
+            document.getElementById('jump-keybind-modifier').value = this.jumpKey;
+            this.crouchKey = 'ArrowDown';
+            document.getElementById('crouch-keybind-modifier').value = this.crouchKey;
+            this.pauseKey = 'Escape';
+            document.getElementById('pause-keybind-modifier').value = this.pauseKey;
+            this.musicStatus = 'm';
+            document.getElementById('mute-keybind-modifier').value = this.musicStatus;
+        
+    }
+    loadCurrentKeys () {
+
+    }
+
+    generalEvents(idHTML, action) {
+
+        switch (action) {
+
+            case 'jump':
+                idHTML.addEventListener('click', (e) => {
+                    document.addEventListener('keydown', (e) => {
+                        if (this.checkKey(e.key)) {
                             this.jumpKey = e.key;
-                            changed = true;
-                        }
-                    }        
+                            idHTML.value = e.key;
+                        } else return 
+                    }, {once: true})
                 })
-            } 
-        })
+                break;
+            case 'mute':
+                idHTML.addEventListener('click', (e) => {
+                    document.addEventListener('keydown', (e) => {
+                        if (this.checkKey(e.key) == true) {
+        
+                            this.musicStatus = e.key;
+                            idHTML.value = e.key;
+                        }
+                    }, {once: true})
+                })
+                break;
+            case 'crouch':
+                idHTML.addEventListener('click', (e) => {
+                    document.addEventListener('keydown', (e) => {
+                        if (this.checkKey(e.key) == true) {
+        
+                            this.crouchKey = e.key;
+                            idHTML.value = e.key;
+                        }
+                    }, {once: true})
+                });
+                break;
+            case 'pause':
+                idHTML.addEventListener('click', (e) => {
+                    document.addEventListener('keydown', (e) => {
+                        if (this.checkKey(e.key) == true) {
+        
+                            this.pauseKey = e.key;
+                            idHTML.value = e.key;
+                        }
+                    }, {once: true})
+                })
+                break;
+            default:
+                console.error(`Can't listen to ${action} action`);
+        }
     }
 }
 
