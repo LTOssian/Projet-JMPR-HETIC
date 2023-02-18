@@ -594,15 +594,15 @@ class Runner {
                 </div>
             </div>
         </div>
-        <audio src="../Runner_assets/sounds/jump_sound.mp3" id="jump_se"></audio>
-        <audio src="../Runner_assets/sounds/dead_sound.mp3" id="dead_se"></audio>
+        <audio src="./Runner_assets/sounds/jump_sound.mp3" id="jump_se"></audio>
+        <audio src="./Runner_assets/sounds/dead_sound.mp3" id="dead_se"></audio>
         `
         this.css = `
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>PARISRUNNER | </title>
-        <link rel="icon" type="image/x-icon" href="../img/favicon_1.ico">
+        <link rel="icon" type="image/x-icon" href="./Runner_assets/img/favicon_1.ico">
         <link rel="stylesheet" href="./styles/runner.css">
         `  
         this.currentGame;
@@ -689,7 +689,7 @@ class Runner {
         if (this.currentGame["assets"]["melody"]) {
             document.querySelector('.wrapper').innerHTML += `<audio src="${this.currentGame["assets"]["melody"]}" id="play_m" loop></audio>`
         } else {
-            document.querySelector('.wrapper').innerHTML += `<audio src="../Runner_assets/sounds/play_music.mp3" id="play_m" loop></audio>`
+            document.querySelector('.wrapper').innerHTML += `<audio src="./Runner_assets/sounds/play_music.mp3" id="play_m" loop></audio>`
         }
         this.toggleMusic()
         document.querySelector("#play_m").volume = .2;
