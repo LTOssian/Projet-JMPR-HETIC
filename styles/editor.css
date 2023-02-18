@@ -1,0 +1,178 @@
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('../assets/backgroundImage.jpeg');
+    background-size: cover;
+}
+
+h1 {
+    font-family: 'VT323', sans-serif;
+    font-weight: 400;
+    font-size: 6rem;
+    color: white;
+    text-shadow: 8px 0 black, -2px 0 black, 0 2px black, 0 -2px black, 2px 2px black, -2px -2px black, 2px -2px black, -2px 2px black;
+    cursor: default;
+    text-align: center;
+}
+
+h1 span {
+    display: inline;
+    position: relative;
+    transition: bottom .1s ease-in-out;
+    bottom: 0px;
+}
+
+h1 span:hover {
+    color: #C1666B;
+    bottom: 10px;
+}
+
+#app {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+main {
+    background: rgba(250,250,250,.8);
+    padding: 2rem 1rem;
+    margin: 1rem;
+    border-radius: 20px;
+    border: 3px solid #5D6D8C;
+}
+
+#heroSettings {
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.gameSettings {
+    display: flex;
+    flex-flow: column;
+    margin: 8px 0;
+}
+ label {
+    font-size: 18px;
+ }
+
+input {
+    padding: .5rem;
+    border-radius: 4px;
+}
+
+ input:not(input[type="range"]) {
+    border: 2px solid black;
+ }
+
+.block {
+    display: flex;
+    flex-flow: column-reverse;
+    border: 1px solid black;
+    padding: 8px;
+}
+#radioSet {
+    display: flex; 
+    flex-flow: row;
+    margin-bottom: 8px;
+    width: 1100px;
+    overflow: auto;
+    color: #B85156;
+    font-weight: 900;
+}
+
+button {
+    padding: 1rem 2rem;
+    height:fit-content;
+    margin-bottom: 8px;
+    background-color: #C1666B;
+    border: none;
+    color: white;
+    font-style: 28px;
+    border-radius: 4px;
+}
+button:hover {
+    cursor: pointer;
+    background-color: #B85156;
+}
+
+#assetsSet input {
+    margin: .25rem 0;
+    width: 600px;
+}
+
+#bottomLayout {
+    display: flex;
+    justify-content: space-between;
+}
+
+#previewLayout {
+    width: 350px;
+    overflow: hidden;
+    background-color: rgba(250,250,250,.7);
+    border-radius: 8px;
+    border: 2px solid;
+    text-align: center;
+}
+
+#previewLayout p {
+    margin-top : 8px;
+    width: 100%;
+    user-select: all;
+}
+
+.deleteBtn {
+    padding: .5rem;
+}
+
+#editorToHomePage {
+    background: none;
+    padding: 0;
+}
+
+@media only screen and (max-width: 1180px) {
+    img {
+        width: 80%;
+    }
+    body {
+        display: block;
+        height: auto;
+        width: auto;
+    }
+    body::before {
+        background-size: cover;
+    }
+    main {
+        display: flex;
+    }
+    #heroSettings {
+        display: block;
+    }
+    #radioSet {
+        width: 375px;
+
+    }
+    #bottomLayout {
+        display: block;
+    }
+    #assetsSet input {
+        width: 250px;
+    }
+}
