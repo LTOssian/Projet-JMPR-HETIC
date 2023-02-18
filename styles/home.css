@@ -31,6 +31,7 @@ body {
 span {
     font-family: 'VT323', sans-serif;
     font-size: 2rem;
+    letter-spacing: 3px;
 }
 p {
     font-family: 'VT323', sans-serif;
@@ -125,11 +126,11 @@ p:hover {
 
 }
 
-#creditPage {
+#optionPage {
     grid-area: 2 / 1 / 2 / 1;
 }
 
-#optionPage {
+#creditPage {
     grid-area: 2 / 2 / 2 / 2;
 }
 
