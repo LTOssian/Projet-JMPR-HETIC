@@ -10,6 +10,7 @@ class Stage {
         this.name = name
         this.leaderboard = new Map()
         this.jsonData = jsonMap
+        this.game;
     }
 
     addPlayer(name, score){
@@ -20,6 +21,8 @@ class Stage {
         return this.jsonData;
     }
 }
+
+
 
 class HomePage {
     constructor() {
@@ -114,6 +117,7 @@ class HomePage {
                     fReader.onload = () => {
                         const content = JSON.parse(fReader.result);
                         this.stages.push(new Stage(content["title"], content))
+                        this.stages[this.stages.length - 1].game = new Runner();
                         document.querySelector('#currentLoads').innerHTML = `Currently ${this.stages.length} level(s) loaded`
                         this.currentStage = this.stages.length - 1
                         this.updateCarousel()
@@ -179,8 +183,9 @@ class HomePage {
         document.querySelector('#levelName').addEventListener('click', (e) => {
             if (this.stages.length > 0) {
                 this.unnmount;
-                runner.mount(this.stages[this.currentStage].data);
-                runner.methods();
+
+                this.stages[this.currentStage].game.mount(this.stages[this.currentStage].data);
+                this.stages[this.currentStage].game.methods();
             } else {
                 console.error('Importez une map pour jouer')
             }
@@ -558,6 +563,15 @@ class Runner {
         this.html = `
         <div class="wrapper">
             <h1 class="title"></h1>
+            <div id="optionsDisplay">
+            <button id="runnerToHomePage"><img src="./assets/homeIcon.svg" alt="Home page" width="30px"></button>
+
+                <span id="jumpRule">Jump: </span>
+                <span id="crouchRule">Crouch: </span>
+                <span id="muteRule">Mute: </span>
+                <span id="pauseRule">Pause: </span>
+
+            </div>
             <div class='viewgame'>
                 <div class="road"></div>
                 <span class="score">Score : <strong>0</strong></span>
@@ -577,11 +591,9 @@ class Runner {
                 <div class="menu">
                     <button class="continue">CONTINUE</button>
                     <button class="restart">RESTART</button>
-                    <button id="homeRoute">HOME</button>
                 </div>
             </div>
         </div>
-        <audio src="../Runner_assets/sounds/play_music.mp3" id="play_m" loop></audio>
         <audio src="../Runner_assets/sounds/jump_sound.mp3" id="jump_se"></audio>
         <audio src="../Runner_assets/sounds/dead_sound.mp3" id="dead_se"></audio>
         `
@@ -592,15 +604,38 @@ class Runner {
         <title>PARISRUNNER | </title>
         <link rel="icon" type="image/x-icon" href="../img/favicon_1.ico">
         <link rel="stylesheet" href="./styles/runner.css">
-        `
+        `  
         this.currentGame;
+        this.playerScore = 0;
+        this.gameStatus = false;
+        this.pauseStatus = false;
+        this.isCrouching = false;
+        this.soundStatus = false;
+
+        this.gameView ;
+        this.player ;
+        this.scoreUI ;
+        this.gameOverView ;
+        this.bakgroundView ;
+        this.menuView ;
+        this.musicAsset ;
+        this.jumpSoundEffectAsset ;
+        this.deathSoundEffectAsset ;
+        this.startView ;
+        this.continueCTA ;
+        this.restartCTA ;
     }
+
     updateCSS () {
         document.querySelector('head').innerHTML = this.css;
     }
 
     updateHTML () {
         document.querySelector('body').innerHTML = this.html;
+        document.getElementById('jumpRule').innerHTML = `Jump: <strong>${options.jumpKey}</strong>`;
+        document.getElementById('crouchRule').innerHTML = `Crouch: <strong>${options.crouchKey}</strong>`;
+        document.getElementById('pauseRule').innerHTML = `Pause: <strong>${options.pauseKey}</strong>`;
+        document.getElementById('muteRule').innerHTML = `mute: <strong>${options.musicStatus}</strong>`;
     }
 
     mount (gameData) {
@@ -613,9 +648,14 @@ class Runner {
         document.querySelector('head').innerHTML = "";
         document.querySelector('body').innerHTML = "";
     }
+
     methods() {
         this.processGameData()
+        this.updateGameVariables();
+        this.soundDesign();
         this.homeRoute();
+        this.startEvent();
+
     }
 
     processGameData () {
@@ -623,13 +663,72 @@ class Runner {
             document.querySelector('.title').innerHTML += `<span>${this.currentGame["title"][i]}<span>`
         }
     }
+
+    updateGameVariables () {
+        this.gameView = document.querySelector('.viewgame');
+        this.player = document.querySelector('.player');
+        this.scoreUI = document.querySelector(".score")
+        this.gameOverView = document.querySelector(".gameOver")
+        this.bakgroundView = document.querySelector(".road")
+        this.menuView = document.querySelector(".menu")
+        this.jumpSoundEffectAsset = document.querySelector("#jump_se")
+        this.deathSoundEffectAsset = document.querySelector("#dead_se")
+        this.startView = document.querySelector(".startGame")
+        this.continueCTA = document.querySelector(".continue")
+        this.restartCTA = document.querySelector(".restart")
+    }
     
     homeRoute () {
-        document.getElementById('homeRoute').addEventListener("click", (e) => {
+        document.getElementById('runnerToHomePage').addEventListener("click", () => {
             this.unmount();
             home.mount();
         })
     }
+
+    soundDesign () {
+        if (this.currentGame["assets"]["melody"]) {
+            document.querySelector('.wrapper').innerHTML += `<audio src="${this.currentGame["assets"]["melody"]}" id="play_m" loop></audio>`
+        } else {
+            document.querySelector('.wrapper').innerHTML += `<audio src="../Runner_assets/sounds/play_music.mp3" id="play_m" loop></audio>`
+        }
+        this.toggleMusic()
+        document.querySelector("#play_m").volume = .2;
+        this.jumpSoundEffectAsset.volume = .25;
+        this.deathSoundEffectAsset.volume = .2;
+
+        document.addEventListener('keydown', (e)=> {
+            if (e.key == options.musicStatus) {
+                this.toggleMusic()
+            }
+        })
+    }
+
+    toggleMusic() {
+        if (this.soundStatus) {
+            console.log("music off")
+            document.querySelector("#play_m").pause()
+            document.querySelector("#play_m").currentTime = 0; 
+            this.soundStatus = false
+        } else {
+            console.log("music on")
+            document.querySelector("#play_m").play();
+            this.soundStatus = true;
+        }
+    }
+
+    
+
+    startEvent () {
+        document.addEventListener("keydown", (e) => {
+            if ((e.code == "Space") && (!this.gameStatus) && (!this.pauseStatus)) {
+                console.log("ok ca joue")
+                this.gameStatus = true;
+                this.scoreUI = 0;
+
+            }
+        })
+    }
+
 
 
 
@@ -639,7 +738,6 @@ class Runner {
 const score = new LeaderBoard();
 const options = new Options();
 const home = new HomePage();
-const runner = new Runner();
 
 // J'ai intégré le html et css de Benjos MAIS je me suis arrété ligne 145 pour le JS
 // Gros probleme avec getComputedStyle que je n'arrive pas à régler 
