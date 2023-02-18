@@ -371,22 +371,22 @@ class Options {
                 <h3 id="subtitle">Keybinds</h3>
                 <div id="jump-keybind-container" class="modify-keybind-container">
                     <label for="jump-keybind-modifier">Jump: </label>
-                    <input type="button" class="btn" value="ArrowUp" id="jump-keybind-modifier">
+                    <input type="button" class="btn" id="jump-keybind-modifier">
                 </div>
 
                 <div id="crouch-keybind-container" class="modify-keybind-container">
                     <label for="crouch-keybind-modifier">Crouch:</label>
-                    <input type="button" class="btn" value="ArrowDown" id="crouch-keybind-modifier">
+                    <input type="button" class="btn" id="crouch-keybind-modifier">
                 </div>
 
                 <div id="pause-keybind-container" class="modify-keybind-container">
                     <label for="pause-keybind-modifier">Pause:</label>
-                    <input type="button" class="btn" value="Escape" id="pause-keybind-modifier">
+                    <input type="button" class="btn" id="pause-keybind-modifier">
                 </div>
 
                 <div id="mute-keybind-container" class="modify-keybind-container">
                     <label for="mute-keybind-modifier">Mute music:</label>
-                    <input type="button" class="btn" value="m" id="mute-keybind-modifier">
+                    <input type="button" class="btn" id="mute-keybind-modifier">
                 </div>
 
                 <button id="default-button" class="btn">Default</button>
@@ -409,8 +409,8 @@ class Options {
         `;
         this.jumpKey = 'ArrowUp';
         this.crouchKey = 'ArrowDown';
-        this.pauseKey = 'Escape';
-        this.musicStatus = 'm';
+        this.pauseKey = 'P';
+        this.musicStatus = 'M';
     }
 
     updateCSS () {
@@ -424,19 +424,21 @@ class Options {
     mount () {
         this.updateCSS();
         this.updateHTML();
+        this.loadCurrentKeys();
     }
 
     unmount () {
         document.querySelector('head').innerHTML = "";
         document.querySelector('body').innerHTML = "";
+        
     }
     methods() {
         this.homeRoute();
-        this.loadEvents()
+        this.loadEvents();
     }
 
     homeRoute () {
-        document.getElementById('optionsToHomePage').addEventListener('click', (e) => {
+        document.getElementById('optionsToHomePage').addEventListener('click', () => {
             this.unmount();
             home.mount();
         })
@@ -460,24 +462,26 @@ class Options {
         this.generalEvents(document.getElementById('crouch-keybind-modifier'), 'crouch');
         this.generalEvents(document.getElementById('pause-keybind-modifier'), 'pause');
         this.generalEvents(document.getElementById('mute-keybind-modifier'), 'mute');
-        
-        document.getElementById("default-button").addEventListener('click', this.loadDefaultKeys)
-        
+        document.getElementById("default-button").addEventListener('click', (e) => {
+            this.setDefaultKeys();
+            this.loadCurrentKeys();
+        })
     }
-    loadDefaultKeys () {
-            this.jumpKey = 'ArrowUp';
-            document.getElementById('jump-keybind-modifier').value = this.jumpKey;
-            this.crouchKey = 'ArrowDown';
-            document.getElementById('crouch-keybind-modifier').value = this.crouchKey;
-            this.pauseKey = 'Escape';
-            document.getElementById('pause-keybind-modifier').value = this.pauseKey;
-            this.musicStatus = 'm';
-            document.getElementById('mute-keybind-modifier').value = this.musicStatus;
-        
-    }
-    loadCurrentKeys () {
 
+    loadCurrentKeys () {
+        document.getElementById('jump-keybind-modifier').value = this.jumpKey;
+        document.getElementById('crouch-keybind-modifier').value = this.crouchKey;
+        document.getElementById('pause-keybind-modifier').value = this.pauseKey;
+        document.getElementById('mute-keybind-modifier').value = this.musicStatus;
     }
+    
+    setDefaultKeys () {
+            this.jumpKey = 'ArrowUp';
+            this.crouchKey = 'ArrowDown';
+            this.pauseKey = 'Escape';
+            this.musicStatus = 'm';
+    }
+    
 
     generalEvents(idHTML, action) {
 
