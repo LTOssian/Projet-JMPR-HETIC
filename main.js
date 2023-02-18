@@ -424,7 +424,6 @@ class Options {
     mount () {
         this.updateCSS();
         this.updateHTML();
-        this.loadCurrentKeys();
     }
 
     unmount () {
@@ -434,6 +433,7 @@ class Options {
     }
     methods() {
         this.homeRoute();
+        this.loadCurrentKeys();
         this.loadEvents();
     }
 
@@ -478,8 +478,8 @@ class Options {
     setDefaultKeys () {
             this.jumpKey = 'ArrowUp';
             this.crouchKey = 'ArrowDown';
-            this.pauseKey = 'Escape';
-            this.musicStatus = 'm';
+            this.pauseKey = 'P';
+            this.musicStatus = 'M';
     }
     
 
