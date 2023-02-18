@@ -15,6 +15,10 @@ class Stage {
     addPlayer(name, score){
         this.leaderboard.set(name, score)
     }
+
+    get data () {
+        return this.jsonData;
+    }
 }
 
 class HomePage {
@@ -175,7 +179,7 @@ class HomePage {
         document.querySelector('#levelName').addEventListener('click', (e) => {
             if (this.stages.length > 0) {
                 this.unnmount;
-                runner.mount();
+                runner.mount(this.stages[this.currentStage].data);
                 runner.methods();
             } else {
                 console.error('Importez une map pour jouer')
@@ -573,7 +577,7 @@ class Runner {
                 <div class="menu">
                     <button class="continue">CONTINUE</button>
                     <button class="restart">RESTART</button>
-                    <a href="./indew.html"><button>LEAVE</button></a>
+                    <button id="homeRoute">HOME</button>
                 </div>
             </div>
         </div>
@@ -589,6 +593,7 @@ class Runner {
         <link rel="icon" type="image/x-icon" href="../img/favicon_1.ico">
         <link rel="stylesheet" href="./styles/runner.css">
         `
+        this.currentGame;
     }
     updateCSS () {
         document.querySelector('head').innerHTML = this.css;
@@ -601,6 +606,7 @@ class Runner {
     mount (gameData) {
         this.updateCSS();
         this.updateHTML();
+        this.currentGame = gameData
     }
 
     unmount () {
@@ -608,9 +614,20 @@ class Runner {
         document.querySelector('body').innerHTML = "";
     }
     methods() {
+        this.processGameData()
+        this.homeRoute();
+    }
 
+    processGameData () {
+        document.querySelector('.title').innerText = this.currentGame["title"]
     }
     
+    homeRoute () {
+        document.getElementById('homeRoute').addEventListener("click", (e) => {
+            this.unmount();
+            home.mount();
+        })
+    }
 }
 
 const score = new LeaderBoard();
