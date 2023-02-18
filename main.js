@@ -43,13 +43,13 @@ class HomePage {
                 <button class="carouselBtn" id="nextName"><img src="./assets/chevron-right.svg" alt="right navigation" width="50px"></button>
             </div>
             <div id="navButtons">
-                <input id="loadbutton" type="file"></input>
-                <label for="loadbutton" class="btn">LOAD</label>
-                <a href="https://ltossian.github.io/map-editor-hetic/" target="_blank" class="button2 btn">EDITOR</a>
-                <button class="btn" id="optionPage">OPTIONS</button>
-                <a href="https://obamasixgaming.github.io/Credit-page1/" target="_blank" class="button4 btn">CREDITS</a>
-                <button class="btn" id="scorePage">
-                    <img src="./assets/Trophy.png" width="100px" >
+                <input id="loadButton" type="file"></input>
+                <label for="loadButton" class="gridButton">LOAD</label>
+                <a href="https://ltossian.github.io/map-editor-hetic/" target="_blank" class="gridButton">EDITOR</a>
+                <button class="gridButton" id="optionPage">OPTIONS</button>
+                <a href="https://obamasixgaming.github.io/Credit-page1/" target="_blank" class="gridButton">CREDITS</a>
+                <button class="gridButton" id="scorePage">
+                    <img src="./assets/Trophy.png" width="50px">
                 </button>
             </div>
         </div>  
@@ -96,7 +96,7 @@ class HomePage {
     }
 
     loadStage () {
-        document.getElementById('loadbutton').addEventListener('click', (e) => {
+        document.getElementById('loadButton').addEventListener('click', (e) => {
             e.preventDefault();
             let inputFile = document.createElement(`input`)
             inputFile.type = "file";
