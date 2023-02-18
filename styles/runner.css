@@ -1,9 +1,6 @@
-@font-face {
-    font-family: "VT323_Regular";
-    src: url(../fonts/VT323-Regular.ttf);
-    font-weight: 400;
-    font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
+
 
 /* COMMON CSS */
 :root {
@@ -30,7 +27,7 @@ html, body {
 }
 
 html{
-    background-image: url(../Runner_assets/img/paris_background.png);
+    background-image: url("../Runner_assets/img/paris_background.png");
     background-repeat: no-repeat;
     background-origin: border-box;
     background-position: bottom center;
@@ -44,32 +41,29 @@ body {
     flex-flow: column;
     align-items: center;
     justify-content: flex-start;
+    font-family: 'Inter', sans-serif;
 }
 
 h1 {
-    display: flex;
-    justify-content: center;
-    align-items: flex-end;
-    font-family: "VT323_Regular";
+    font-family: 'VT323', sans-serif;
     font-weight: 400;
-    font-size: 7.5rem;
+    font-size: 5rem;
+    color: var(--c_white);
+    text-shadow: 10px 0 var(--c_black), -2px 0 var(--c_black), 0 2px var(--c_black), 0 -2px var(--c_black), 2px 2px var(--c_black), -2px -2px var(--c_black), 2px -2px var(--c_black), -2px 2px var(--c_black);
+    cursor: default;
+    text-align: center;
 }
 
 h1 span {
-    display: flex;
-    text-align: center;
-    justify-content: center;
-    color: var(--c_white);
-    padding: 0 5px;
-    transition: all 0.2s ease-in-out;
-    text-shadow: 10px 0 var(--c_black), -2px 0 var(--c_black), 0 2px var(--c_black), 0 -2px var(--c_black), 2px 2px var(--c_black), -2px -2px var(--c_black), 2px -2px var(--c_black), -2px 2px var(--c_black);
+    display: inline;
+    position: relative;
+    transition: bottom .1s ease-in-out;
+    bottom: 0px;
 }
 
 h1 span:hover {
-    cursor: default;
-    padding-bottom: 50px;
-    color: var(--c_primary_dark);
-    transition: all 0.2s ease-in-out;
+    color: var(--c_primary);
+    bottom: 10px;
 }
 
 /* PLAY PAGE */
@@ -209,7 +203,7 @@ h1 span:hover {
     position: absolute;
     font-size: 10rem;
     color: var(--c_primary_dark);
-    font-family: "VT323_Regular";
+    font-family: 'VT323', sans-serif;
     top: 30%;
     left: 22%;
 }
@@ -219,7 +213,7 @@ h1 span:hover {
     position: absolute;
     font-size: 5rem;
     color: var(--c_primary_dark);
-    font-family: "VT323_Regular";
+    font-family: 'VT323', sans-serif;
     top: 30%;
     left: 22%;
 }
@@ -232,7 +226,7 @@ h1 span:hover {
     position: absolute;
     font-size: 2rem;
     color: var(--c_black);
-    font-family: "VT323_Regular";
+    font-family: 'VT323', sans-serif;
     top: 90%;
     left: 20%;
     text-shadow: -2px 0 var(--c_white), 0 2px var(--c_white), 0 -2px var(--c_white), 2px 2px var(--c_white), -2px -2px var(--c_white), 2px -2px var(--c_white), -2px 2px var(--c_white);
@@ -255,7 +249,7 @@ h1 span:hover {
 }
 
 #play .menu button{
-    font-family: "VT323_Regular";
+    font-family: 'VT323', sans-serif;
     font-size: 2rem;
     padding: 10px;
     border-radius: 5px;

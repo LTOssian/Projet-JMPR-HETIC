@@ -619,7 +619,9 @@ class Runner {
     }
 
     processGameData () {
-        document.querySelector('.title').innerText = this.currentGame["title"]
+        for(let i = 0; i < this.currentGame["title"].length; i++) {
+            document.querySelector('.title').innerHTML += `<span>${this.currentGame["title"][i]}<span>`
+        }
     }
     
     homeRoute () {
@@ -628,6 +630,10 @@ class Runner {
             home.mount();
         })
     }
+
+
+
+
 }
 
 const score = new LeaderBoard();
