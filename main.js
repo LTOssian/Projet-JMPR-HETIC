@@ -46,15 +46,15 @@ class HomePage {
                 
             <div id="carousel">
                 <button class="carouselBtn" id="prevName"><img src="./assets/chevron-left.svg" alt="left navigation" width="50px"></button>
-                <button id="levelName">Aucun niveau</button>
+                <button id="levelName"><span>Aucun niveau</span></button>
                 <button class="carouselBtn" id="nextName"><img src="./assets/chevron-right.svg" alt="right navigation" width="50px"></button>
             </div>
             <div id="navButtons">
                 <input id="loadButton" type="file"></input>
-                <label for="loadButton" class="gridButton">LOAD</label>
-                <a href="https://ltossian.github.io/map-editor-hetic/" target="_blank" class="gridButton">EDITOR</a>
-                <button class="gridButton" id="optionPage">OPTIONS</button>
-                <a href="https://obamasixgaming.github.io/Credit-page1/" target="_blank" class="gridButton" id="creditPage">CREDITS</a>
+                <label for="loadButton" class="gridButton"><span>LOAD</span></label>
+                <button class="gridButton" id="editorPage"><span>EDITOR</span></button>
+                <button class="gridButton" id="optionPage"><span>OPTIONS</span></button>
+                <a href="https://obamasixgaming.github.io/Credit-page1/" target="_blank" class="gridButton" id="creditPage"><span>CREDITS</span></a>
                 <button class="gridButton" id="scorePage">
                     <img src="./assets/Trophy.png" width="50px">
                 </button>
@@ -66,10 +66,9 @@ class HomePage {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HOME | PARISRUNNER</title>
+        <link rel="icon" type="image/x-icon" href="./Runner_assets/img/favicon_1.ico">
         <link rel="stylesheet" href="./styles/home.css">
-        <style>
-            @import url('https://fonts.googleapis.com/css2?family=Inter:wght@800&family=PT+Sans&family=Source+Code+Pro:wght@500&display=swap');
-        </style>
         ` 
         this.stages= [];
         this.currentStage = 0;
@@ -96,7 +95,7 @@ class HomePage {
         this.scoreRoute();
         this.optionRoute();
         this.runnerRoute();
-
+        this.editorRoute();
     }
 
     unnmount () {
@@ -133,7 +132,7 @@ class HomePage {
 
     updateCarousel () {
             if (this.stages.length) {
-                document.getElementById('levelName').innerHTML = this.stages[this.currentStage].name;
+                document.getElementById('levelName').innerHTML = `<span>${this.stages[this.currentStage].name}</span>`;
                 document.getElementById('carousel').style.background = `url(${this.stages[this.currentStage].jsonData["assets"]["background"]})`;
             }
         }        
@@ -165,6 +164,8 @@ class HomePage {
 
     scoreRoute () {
         document.querySelector('#scorePage').addEventListener('click', (e) => {
+            e.preventDefault();
+
             this.unmount;
             score.mount();
             score.methods();
@@ -173,6 +174,8 @@ class HomePage {
 
     optionRoute () {
         document.querySelector('#optionPage').addEventListener('click', (e) => {
+            e.preventDefault();
+
             this.unmount;
             options.mount();
             options.methods();
@@ -181,6 +184,7 @@ class HomePage {
 
     runnerRoute () {
         document.querySelector('#levelName').addEventListener('click', (e) => {
+            e.preventDefault();
             if (this.stages.length > 0) {
                 this.unnmount;
 
@@ -191,9 +195,255 @@ class HomePage {
             }
         })
     }
+
+    editorRoute () {
+        document.getElementById('editorPage').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.unnmount;
+            editor.mount();
+            editor.methods();
+        })
+    }
     
 }
 
+class EditorTemplate {
+    constructor() {
+        this._title = "";
+        this._creator = "";
+        this._difficulty = "";
+        this._blocks = "";
+        this._preview = "";
+        this._assetsUrl = "";
+        this._blocksValue = "";
+    }
+
+    get title () {
+        return this._title;
+    }
+    get creator () {
+        return this._creator;
+    }
+    get difficulty () {
+        return this._difficulty;
+    }
+    get blocks () {
+        return this._blocks;
+    }
+    get assetsUrl () {
+        return this._assetsUrl;
+    }
+    get blocksValue () {
+        return this._blocksValue;
+    }
+
+    getRadioValues(){
+        let output = "";
+        for (const [key, _] of Object.entries(document.getElementById('radioSet').children)) {
+            const radios = document.getElementsByName(`block${key}`);
+            let currentCheckStatus = false;
+            for (let i = 0; i < radios.length; i++) {
+                if (radios[i].checked) {
+                    output += `{"type": "${radios[i].value}"},`
+                    currentCheckStatus = true;
+                    break;
+                }
+            }
+        }
+        return output.slice(0,-1);
+    }
+
+    updateSuper() {
+        this._title = document.getElementById('title').value;
+        this._creator = document.getElementById('creator').value;
+        this._difficulty = document.getElementById('difficulty').value;
+        this._assetsUrl = `{"melody":"${document.getElementById('melody').value}", "background":"${document.getElementById('background').value}", "A": "${document.getElementById('blocksA').value}", "B": "${document.getElementById('blocksB').value}", "C": "${document.getElementById('blocksC').value}"}
+        `;
+        this._blocksValue = `[${this.getRadioValues()}]`;
+    }
+
+    updatePreview () {
+        this.updateSuper();
+        this._preview = 
+        `{"title":"${this.title}",
+        "creator":"${this.creator}",
+        "difficulty":${this.difficulty},
+        "assets":${this.assetsUrl},
+        "blocks":${this.blocksValue}}`
+        document.getElementById('radioSet').style.background = `url('${document.getElementById('background').value}')`;
+        document.getElementById('radioSet').style.backgroundSize = 'contain';
+        document.getElementById('previewP').innerHTML = this._preview;
+        return this._preview;
+    }
+}
+
+class EditorPage {
+    constructor() {
+        this.html = `
+        <h1></h1>
+        <button id="editorToHomePage"><img src="./assets/homeIcon.svg" alt="Home page" width="40px"></button>
+
+        <main>
+            <section id="levelSettings">
+                <div id="heroSettings">
+                <div class="gameSettings">
+                        <label for="q_blocks">Nombre de blocs</label>
+                        <input type="number" min="10" name="q_blocks" id="q_blocks" value="10">
+                    </div>
+                    <div class="gameSettings">
+                        <label for="title">Nom du niveau</label>
+                        <input type="text" name="title" id="title" placeholder="Nouveau monde">
+                    </div>
+                    <div class="gameSettings">
+                        <label for="creator">Créateur du niveau</label>
+                        <input type="text" name="creator" id="creator" placeholder="Votre nom">
+                    </div>
+                    <div class="gameSettings">
+                        <label for="difficulty">Difficulté <output id="num">1</output>/5</label>
+                        <input type="range" min="1" max="5" name="difficulty" id="difficulty" value="1" oninput="num.value = this.value">
+                    </div>
+                    
+                    <button id="uploadBtn">UPLOAD</button>
+                    <button id="downloadBtn">DOWNLOAD</button>
+                    </div>
+                </div>
+                <div id="radioSet">
+                
+                </div>
+            <div id="bottomLayout">
+            <div id="assetsSet">
+                        <div class="gameSettings">
+                            <label for="melody">URL Musique</label>
+                            <input type="url" name="melody" id="melody" placeholder="https://...">
+                        </div>
+                        <div class="gameSettings">
+                            <label for="background">URL Background</label>
+                            <input type="url" name="background" id="background" placeholder="https://...">
+                        </div>
+                        <div class="gameSettings">
+                            <label for="blocksA">URL Blocs</label>
+                            <input type="url" name="blocks" id="blocksA" placeholder="https://type-A...">
+                            <input type="url" name="blocks" id="blocksB" placeholder="https://type-B...">
+                            <input type="url" name="blocks" id="blocksC" placeholder="https://type-C...">
+                        </div>
+                </div>
+                <div id="previewLayout">
+                    <h2>Prévisualisation</h2>
+                    <p id="previewP"></p>
+                </div>
+            </div>
+                
+                    
+            </section>
+        </main> 
+        `;
+        this.css = `
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>OPTIONS | PARISRUNNER</title>
+        <link rel="icon" type="image/x-icon" href="./Runner_assets/img/favicon_1.ico">
+        <link rel="stylesheet" href="./styles/editor.css">
+        `;
+        this.level = new EditorTemplate();
+    }
+
+    updateCSS () {
+        document.querySelector('head').innerHTML = this.css;
+    }
+
+    updateHTML () {
+        document.querySelector('body').innerHTML = this.html;
+    }
+
+    mount () {
+        this.updateCSS();
+        this.updateHTML();
+    }
+    
+    unmount() {
+        document.querySelector('head').innerHTML = "";
+        document.querySelector('body').innerHTML = "";
+    }
+
+    methods () {
+        this.titleAnimation();
+        this.homeRoute();
+        this.eventListeners();
+        this.initRadios();
+    }
+
+    titleAnimation () {
+        const title = "EDITOR"
+        for(let i = 0; i < title.length; i++) {
+            document.querySelector('h1').innerHTML += `<span>${title[i]}<span>`
+        }
+
+    }
+
+    eventListeners() {
+        const inputs = document.querySelectorAll('input');
+        inputs.forEach(element => {
+            element.addEventListener('input', (e) => {
+                this.level.updatePreview();
+                if (element.type == "radio") {
+                    console.log("radio")
+                    document.querySelector('#q_blocks').disabled = true;
+                }   
+            })
+        });
+    
+        const deleteBtns = document.querySelectorAll('.deleteBtn');
+        console.log(deleteBtns)
+    
+        for (let i = 0; i < deleteBtns.length; i++) {
+            const btn = deleteBtns[i];
+            btn.addEventListener('click', (e) => {
+                const q_blocks = document.querySelectorAll('.block').length
+                if (q_blocks > 10) {
+                document.getElementById(`block${i}`).remove();
+                document.querySelector('#q_blocks').value = q_blocks - 1;
+                this.level.updatePreview();
+                } else {
+                    console.error(`Maps under 10 blocks are not valid`);
+                }
+            })
+        }  
+    }
+
+    addRadio (e) {
+        document.getElementById('radioSet').innerHTML = "";
+    for (let i = 0; i < e.value; i++) {
+        const customBlock = `
+        <div class="block" id="block${i}">
+            <input type="radio" id="A${i}" name="block${i}" value="A" name="A">
+            <label for="A${i}">A</label>
+            <input type="radio" id="B${i}" name="block${i}" value="B" name="B">
+            <label for="B${i}">B</label>
+            <input type="radio" id="C${i}" name="block${i}" value="C" name="C">
+            <label for="C${i}">C</label>
+            <button id="delete${i}" class="deleteBtn">X</button>
+        </div>
+        `
+        document.getElementById('radioSet').innerHTML += customBlock;
+    }
+    this.eventListeners();
+    }
+
+    initRadios () {
+        this.addRadio(document.getElementById('q_blocks'));
+        document.getElementById('q_blocks').addEventListener('change', (e) => {
+            this.addRadio(document.getElementById('q_blocks'));
+        })
+    }
+
+    homeRoute () {
+        document.getElementById('editorToHomePage').addEventListener('click', (e) => {
+            this.unmount;
+            home.mount();
+        })
+    }
+}
 
 class LeaderBoard {
     constructor() {
@@ -224,7 +474,8 @@ class LeaderBoard {
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
+            <title>LEADERBOARD | PARISRUNNER</title>
+            <link rel="icon" type="image/x-icon" href="./Runner_assets/img/favicon_1.ico">
             <link rel="stylesheet" href="./styles/leaderboard.css">
         </head>
         `;
@@ -425,8 +676,9 @@ class Options {
             <meta charset="UTF-8">
             <meta http-equiv="X-UA-Compatible" content="IE=edge">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-            <link rel="stylesheet" href="./styles/options.css">
+            <title>OPTIONS | PARISRUNNER</title>
+            <link rel="icon" type="image/x-icon" href="./Runner_assets/img/favicon_1.ico">
+                <link rel="stylesheet" href="./styles/options.css">
         </head>
         `;
         this.jumpKey = 'ArrowUp';
@@ -558,6 +810,29 @@ class Options {
     }
     
 }
+
+class Credits {
+    constructor() {
+        this.html = ``;
+        this.css = ``;
+    }
+
+    updateCSS() {
+
+    }
+
+    updateHTML() {
+
+    }
+
+    mount() {
+
+    }
+    
+    unmount() {
+
+    }
+}
 class Runner {
     constructor(){
         this.html = `
@@ -601,7 +876,7 @@ class Runner {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>PARISRUNNER | </title>
+        <title>GAME | PARISRUNNER</title>
         <link rel="icon" type="image/x-icon" href="./Runner_assets/img/favicon_1.ico">
         <link rel="stylesheet" href="./styles/runner.css">
         `  
@@ -706,8 +981,8 @@ class Runner {
     toggleMusic() {
         if (this.soundStatus) {
             console.log("music off")
-            document.querySelector("#play_m").pause()
             document.querySelector("#play_m").currentTime = 0; 
+            document.querySelector("#play_m").pause()
             this.soundStatus = false
         } else {
             console.log("music on")
@@ -737,10 +1012,7 @@ class Runner {
 
 const score = new LeaderBoard();
 const options = new Options();
+const editor = new EditorPage();
 const home = new HomePage();
-
-// J'ai intégré le html et css de Benjos MAIS je me suis arrété ligne 145 pour le JS
-// Gros probleme avec getComputedStyle que je n'arrive pas à régler 
-// De plus la musique ne fonctionne pas non plus
 
 home.mount();
