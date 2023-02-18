@@ -1,0 +1,8 @@
+{
+            "title":"Metro1",
+            "creator":"Aless",
+            "difficulty":2,
+            "assets":{"melody":"https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley", "background":"https://media.discordapp.net/attachments/1073169977215025183/1073264341735968788/DALLE_2023-02-09_16.29.10_-_paris_building_.png?width=1196&height=361", "A": "", "B": "", "C": ""}
+        ,
+            "blocks":[{"type": "C"},{"type": "A"},{"type": "B"},{"type": "C"},{"type": "A"},{"type": "B"},{"type": "C"},{"type": "B"},{"type": "B"},{"type": "A"}]
+        }

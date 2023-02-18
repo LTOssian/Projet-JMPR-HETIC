@@ -1,0 +1,305 @@
+@font-face {
+    font-family: "VT323_Regular";
+    src: url(../fonts/VT323-Regular.ttf);
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* COMMON CSS */
+:root {
+    --c_primary : #C1666B;
+    --c_primary_dark : #B85156;
+    --c_primary_light : #D08B8F;
+    --c_primary_light_alpha:  rgba(208, 139, 143, 0.5);
+    --c_white : #FAFAFA;
+    --c_grey : #888888;
+    --c_black: #1E1E1E;
+    --f_size_ref : 20px;
+    --w_viewgame : 1280px;
+    --h_viewgame : 720px;
+    --b_player : 17%;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+html{
+    background-image: url(../Runner_assets/img/paris_background.png);
+    background-repeat: no-repeat;
+    background-origin: border-box;
+    background-position: bottom center;
+    background-size: cover;
+    font-size: var(--f_size_ref);
+    font-family: sans-serif;
+}
+
+body {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+h1 {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    font-family: "VT323_Regular";
+    font-weight: 400;
+    font-size: 7.5rem;
+}
+
+h1 span {
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    color: var(--c_white);
+    padding: 0 5px;
+    transition: all 0.2s ease-in-out;
+    text-shadow: 10px 0 var(--c_black), -2px 0 var(--c_black), 0 2px var(--c_black), 0 -2px var(--c_black), 2px 2px var(--c_black), -2px -2px var(--c_black), 2px -2px var(--c_black), -2px 2px var(--c_black);
+}
+
+h1 span:hover {
+    cursor: default;
+    padding-bottom: 50px;
+    color: var(--c_primary_dark);
+    transition: all 0.2s ease-in-out;
+}
+
+/* PLAY PAGE */
+#play .title{
+    height: 15vh;
+}
+
+#play .wrapper{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+#play .viewgame{
+    background-color: var(--c_white);
+    border: 3px solid var(--c_black);
+    width: var(--w_viewgame);
+    height: var(--h_viewgame);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 10px 10px var(--c_black), -2px 0 var(--c_black), 0 2px var(--c_black), 0 -2px var(--c_black), 2px 2px var(--c_black), -2px -2px var(--c_black), 2px -2px var(--c_black), -2px 2px var(--c_black);
+}
+
+#play .player{
+    height: 20%;
+    width: 8%;
+    background-image: url('../img/p_wait.png');
+    background-size: cover;
+    position: absolute;
+    bottom: var(--b_player);
+    left: 2%;
+}
+
+#play .playerrunning{
+    background : center / cover no-repeat url('../img/p_run.gif');
+}
+
+#play .jumping{
+    animation: playerJump 0.5s linear infinite;
+    background-image: url('../img/p_jump.png');
+    background-size: cover; 
+} 
+
+#play .crouching{
+    background : center / cover no-repeat url('../img/p_crounch.png');
+}
+
+#play .dead{
+    background : center / cover no-repeat url('../img/p_dead.png');
+}
+
+@keyframes playerJump{
+    0%{
+        bottom: var(--b_player);
+    } 45%{
+        bottom: calc(var(--b_player) + 30%);
+    } 55% {
+        bottom: calc(var(--b_player) + 30%);
+    } 100%{
+        bottom: var(--b_player);
+    }
+}
+
+#play #block{
+    position: absolute;
+    right: -10%;
+}
+
+#play #block.B{
+    height: 10%;
+    width: 10%;
+    background-image: url('../img/rat.gif');
+    background-size: contain;
+    bottom: var(--b_player);
+}
+
+#play #block.C{
+    height: 20%;
+    width: 10%;
+    background-image: url('../img/pigeon.gif');
+    background-size: contain;
+    top: 50%;
+}
+
+#play .spawn{
+    animation: blockSpawn 1s linear infinite;
+}
+
+@keyframes blockSpawn{
+    0%{
+        right: -50%;
+    }100% {
+        right: 100%;
+    }
+}
+
+#play .road{
+    background-image: url('../img/backgroung_game.png');
+    background-size: contain;
+    width: calc(var(--w_viewgame) * 20);
+    height: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+}
+
+#play .running{
+    animation: roadAnimate 20s linear infinite;
+}
+
+@keyframes roadAnimate{
+    0%{
+        left: 0;
+    }100% {
+        left: calc(var(--w_viewgame)  * -7.68);
+    }
+}
+
+#play .score{
+    height: auto;
+    width: auto;
+    position: absolute;
+    top: 1%;
+    right: 1%;
+    z-index: 0;
+    padding: 1% 2%;
+    background-color: var(--c_primary);
+    color: var(--c_white);
+    border-radius: 25px;
+}
+
+#play .gameOver{
+    display: none;
+    position: absolute;
+    font-size: 10rem;
+    color: var(--c_primary_dark);
+    font-family: "VT323_Regular";
+    top: 30%;
+    left: 22%;
+}
+
+#play .startGame{
+    display: block;
+    position: absolute;
+    font-size: 5rem;
+    color: var(--c_primary_dark);
+    font-family: "VT323_Regular";
+    top: 30%;
+    left: 22%;
+}
+
+#play .GO{
+    text-shadow: 10px 0 var(--c_white), -2px 0 var(--c_white), 0 2px var(--c_white), 0 -2px var(--c_white), 2px 2px var(--c_white), -2px -2px var(--c_white), 2px -2px var(--c_white), -2px 2px var(--c_white);
+}
+
+#play .PS{
+    position: absolute;
+    font-size: 2rem;
+    color: var(--c_black);
+    font-family: "VT323_Regular";
+    top: 90%;
+    left: 20%;
+    text-shadow: -2px 0 var(--c_white), 0 2px var(--c_white), 0 -2px var(--c_white), 2px 2px var(--c_white), -2px -2px var(--c_white), 2px -2px var(--c_white), -2px 2px var(--c_white);
+}
+
+#play .pause{
+    animation-play-state: paused;
+}
+
+#play .menu{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3%;
+    height: 100%;
+    width: 100%;
+    background-color: var(--c_primary_light_alpha);
+    position: relative;
+}
+
+#play .menu button{
+    font-family: "VT323_Regular";
+    font-size: 2rem;
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--c_primary);
+    background-color: var(--c_white);
+    border: 1px solid var(--c_primary);
+}
+
+#play .menu button:hover{
+    cursor: pointer;
+    color: var(--c_white);
+    background-color: var(--c_primary);
+    border: 1px solid var(--c_white);
+}
+
+/* RESPONSIVE */
+@media screen and (max-width: 1300px), (max-height: 1000px){
+    :root{
+        --w_viewgame : calc(1280px / 2);
+        --h_viewgame : calc(720px / 2);
+    }
+
+    #play .gameOver{
+        font-size: 5rem;
+    }
+}
+
+@media screen and (max-width: 650px), (max-height: 500px) {
+    :root{
+        --w_viewgame : calc(1280px / 4);
+        --h_viewgame : calc(720px / 4);
+    }
+
+    #play .gameOver{
+        font-size: 2.5rem;
+    }
+
+    #play .menu button{
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-height: 500px), (max-width: 440px){
+    #play .title{
+        display: none;
+    }
+}
