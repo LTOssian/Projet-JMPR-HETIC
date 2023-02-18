@@ -37,10 +37,10 @@ class HomePage {
                 
             <input id="loadbutton" type="file"></input>
             <label for="loadbutton" class="button1 btn">LOAD</label>
-            <a href="https://ltossian.github.io/map-editor-hetic/" class="button2 btn">EDITOR</a>
+            <a href="https://ltossian.github.io/map-editor-hetic/" target="_blank" class="button2 btn">EDITOR</a>
             <button class="button3 btn" id="optionPage">OPTIONS</button>
             <div class="basPage">
-              <a href="https://obamasixgaming.github.io/Credit-page1/" class="button4 btn">CREDITS</a>
+              <a href="https://obamasixgaming.github.io/Credit-page1/" target="_blank" class="button4 btn">CREDITS</a>
               <button class="btn" id="scorePage">
               <img src="./assets/Trophy.png" width="100px" >
             </button>
