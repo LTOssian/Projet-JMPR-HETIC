@@ -47,7 +47,7 @@ class HomePage {
                 <label for="loadButton" class="gridButton">LOAD</label>
                 <a href="https://ltossian.github.io/map-editor-hetic/" target="_blank" class="gridButton">EDITOR</a>
                 <button class="gridButton" id="optionPage">OPTIONS</button>
-                <a href="https://obamasixgaming.github.io/Credit-page1/" target="_blank" class="gridButton">CREDITS</a>
+                <a href="https://obamasixgaming.github.io/Credit-page1/" target="_blank" class="gridButton" id="creditPage">CREDITS</a>
                 <button class="gridButton" id="scorePage">
                     <img src="./assets/Trophy.png" width="50px">
                 </button>
