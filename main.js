@@ -109,10 +109,10 @@ class HomePage {
                     const fReader = new FileReader();
                     fReader.onload = () => {
                         const content = JSON.parse(fReader.result);
-                        this.stages.splice(this.stages.length-1, 0,new Stage(content["title"], content))
-                        this.updateCarousel()
+                        this.stages.push(new Stage(content["title"], content))
                         document.querySelector('#currentLoads').innerHTML = `Currently ${this.stages.length} level(s) loaded`
                         this.currentStage = this.stages.length - 1
+                        this.updateCarousel()
                         
                     }
                     fReader.readAsText(file);
@@ -127,28 +127,31 @@ class HomePage {
             if (this.stages.length) {
                 document.getElementById('levelName').innerHTML = this.stages[this.currentStage].name;
                 document.getElementById('carousel').style.background = `url(${this.stages[this.currentStage].jsonData["assets"]["background"]})`;
-
             }
         }        
     carouselEvents () {
         document.getElementById('prevName').addEventListener('click', (e) => {
             if (this.currentStage == 0) {
-                console.error('Vous êtes au premier niveau')
-                return
+                console.error('Vous êtes au début de la liste de jeux')
             } else {
-                this.updateCarousel()
                 this.currentStage--;
+
+                this.updateCarousel()
+
             }
+            console.log(this.currentStage)
         })
         
         document.getElementById('nextName').addEventListener('click', (e) => {
             if (this.currentStage == this.stages.length-1) {
-                console.error('Vous êtes à la fin du jeu');
+                console.error('Vous êtes à la fin de la liste de jeux');
             } else {
-                this.updateCarousel(this.stages)
                 this.currentStage++;
-        
+
+                this.updateCarousel()
+
             }
+            console.log(this.currentStage)
         })
     }
 
@@ -586,28 +589,6 @@ class Runner {
         <link rel="icon" type="image/x-icon" href="../img/favicon_1.ico">
         <link rel="stylesheet" href="./styles/runner.css">
         `
-        // GET GAME VARIABLES
-        this.viewgame = document.querySelector(".viewgame")
-        this.player = document.querySelector(".player")
-        this.score = document.querySelector(".score")
-        this.gameOver = document.querySelector(".gameOver")
-        this.blockA = document.querySelector(".A")
-        this.blockB = document.querySelector(".B")
-        this.blockC = document.querySelector(".C")
-        this.road = document.querySelector(".road")
-        this.menu = document.querySelector(".menu")
-        this.play_m = document.querySelector("#play_m")
-        this.jump_se = document.querySelector("#jump_se")
-        this.dead_se = document.querySelector("#dead_se")
-        this.startGame = document.querySelector(".startGame")
-        this.continue_button = document.querySelector(".continue")
-        this.restart_button = document.querySelector(".restart")
-        this.interval = null
-        this.playerScore = 0
-        this.ingame = false
-        this.inpause = false
-        this.iscrounching = false
-
     }
     updateCSS () {
         document.querySelector('head').innerHTML = this.css;
@@ -617,7 +598,7 @@ class Runner {
         document.querySelector('body').innerHTML = this.html;
     }
 
-    mount () {
+    mount (gameData) {
         this.updateCSS();
         this.updateHTML();
     }
@@ -627,112 +608,10 @@ class Runner {
         document.querySelector('body').innerHTML = "";
     }
     methods() {
-        this.scoreUpdate()
-        // this.stop_sound()
-        this.start()
-        this.jump()
-        this.crounch()
-        this.dead()
 
     }
-    scoreUpdate() {
-        this.playerScore++
-        this.score = `Score : <strong>${this.playerScore}</strong>`
-      }
-
-    // stop_sound(sound){
-    //     sound.pause()
-    //     sound.currentTime = 0;
-    // }
-
-    // START
-    start(){
-        document.addEventListener("keydown", (event)=>{
-        if (event.code == "Space" && this.ingame == false && this.inpause == false){
-            this.gameOver.style.display = "none"
-            this.blockB.classList.add("spawn")
-            //blockC.classList.add("spawn")
-            this.road.classList.add('running')
-            this.viewgame.classList.add('bgAnimate')
-            this.player.classList.remove('dead')
-            this.player.classList.add('playerrunning')
-            this.play_m.play()
-            this.startGame.style.display = "none"
-
-            this.ingame = true
-            this.playerScore = 0
-            this.interval = setInterval(scoreUpdate,200)
-        }
-        })
-    }   
-    // JUMP
-    jump(){
-        document.addEventListener("keydown", (event)=>{
-            if (event.key == options.jumpKey && this.ingame == true && this.inpause == false){
-            if(this.player.classList != "jumping"){
-                this.player.classList.add("jumping")
-                this.jump_se.play()
-            }
-            }
-        })
-    }   
-    // CROUNCH
-    crounch(){
-        document.addEventListener("keydown", (event)=>{
-            if(event.key == options.crouchKey && this.ingame == true && this.inpause == false){
-            this.player.style.height = '15%'
-            this.player.classList.add('crouching')
-            this.iscrounching = true
-            }
-        })
-        
-        document.addEventListener("keyup", (event)=>{
-            if(event.key == options.crouchKey && this.inpause == false){
-            this.player.style.height = '20%'
-            this.player.classList.remove('crouching')
-            this.iscrounching = false
-            }
-        })
-    }
-// GAME OVER
-    dead(){
-        setInterval(() =>{
-            // PLAYER
-            let player_top = parseInt(getComputedStyle(this.player).getPropertyValue("bottom")) + parseInt(getComputedStyle(this.player).getPropertyValue("height"))
-            let player_right = parseInt(getComputedStyle(this.player).getPropertyValue("width"))
-            let player_bottom = parseInt(getComputedStyle(this.player).getPropertyValue("bottom"))
-            let player_left = parseInt(getComputedStyle(this.player).getPropertyValue("left"))
-        
-            // BLOCK B
-            let blockB_top = parseInt(getComputedStyle(this.blockB).getPropertyValue("height")) + parseInt(getComputedStyle(this.blockB).getPropertyValue("bottom"))
-            console.log(blockB_top)
-            let blockB_left = parseInt(getComputedStyle(this.blockB).getPropertyValue("left"))
-            let blockB_right = parseInt(getComputedStyle(this.blockB).getPropertyValue("left")) + parseInt(getComputedStyle(blockB).getPropertyValue("width"))
-            
-            // BLOCK C
-            let blockC_bottom = parseInt(getComputedStyle(this.viewgame).getPropertyValue("height")) - parseInt(getComputedStyle(this.blockC).getPropertyValue("top")) - parseInt(getComputedStyle(this.blockC).getPropertyValue("height"))
-            let blockC_left = parseInt(getComputedStyle(this.blockC).getPropertyValue("left"))
-            let blockC_right = parseInt(getComputedStyle(this.blockC).getPropertyValue("left")) + parseInt(getComputedStyle(this.blockC).getPropertyValue("width"))
-        
-            if (
-            (player_bottom < blockB_top && ((blockB_left >= player_left && blockB_left <= player_right) || (blockB_right >= player_left && blockB_right <= player_right)))
-            || (player_top > blockC_bottom && ((blockC_left >= player_left && blockC_left <= player_right) || (blockC_right >= player_left && blockC_right <= player_right)))
-            ){
-            clearInterval(interval)
-            this.gameOver.style.display = "inline-block"
-            this.blockB.classList.remove("spawn")
-            this.blockC.classList.remove("spawn")
-            this.road.classList.remove("running")
-            this.player.classList.remove('playerrunning')
-            this.player.classList.add('dead')
-            this.playerScore = 0
-            this.ingame = false
-            // stop_sound(play_m)
-            this.dead_se.play()
-            }
-        },1)
-        }
-    }
+    
+}
 
 const score = new LeaderBoard();
 const options = new Options();
