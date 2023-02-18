@@ -407,8 +407,8 @@ class Options {
         `;
         this.jumpKey = 'ArrowUp';
         this.crouchKey = 'ArrowDown';
-        this.pauseKey = 'P';
-        this.musicStatus = 'M';
+        this.pauseKey = 'p';
+        this.musicStatus = 'm';
     }
 
     updateCSS () {
@@ -476,8 +476,8 @@ class Options {
     setDefaultKeys () {
             this.jumpKey = 'ArrowUp';
             this.crouchKey = 'ArrowDown';
-            this.pauseKey = 'P';
-            this.musicStatus = 'M';
+            this.pauseKey = 'p';
+            this.musicStatus = 'm';
     }
     
 
@@ -656,7 +656,7 @@ class Runner {
     // JUMP
     jump(){
         document.addEventListener("keydown", (event)=>{
-            if (event.key == " " && this.ingame == true && this.inpause == false){
+            if (event.key == options.jumpKey && this.ingame == true && this.inpause == false){
             if(this.player.classList != "jumping"){
                 this.player.classList.add("jumping")
                 this.jump_se.play()
@@ -667,7 +667,7 @@ class Runner {
     // CROUNCH
     crounch(){
         document.addEventListener("keydown", (event)=>{
-            if(event.key == "s" && this.ingame == true && this.inpause == false){
+            if(event.key == options.crouchKey && this.ingame == true && this.inpause == false){
             this.player.style.height = '15%'
             this.player.classList.add('crouching')
             this.iscrounching = true
@@ -675,7 +675,7 @@ class Runner {
         })
         
         document.addEventListener("keyup", (event)=>{
-            if(event.key == "s" && this.inpause == false){
+            if(event.key == options.crouchKey && this.inpause == false){
             this.player.style.height = '20%'
             this.player.classList.remove('crouching')
             this.iscrounching = false
