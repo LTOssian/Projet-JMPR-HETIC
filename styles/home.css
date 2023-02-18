@@ -51,12 +51,14 @@ p:hover {
 }
 
 #carousel {
+    
     display: flex;
     width: 50%;
     align-items: center;
     justify-content: space-between;
-    /* padding: 1rem; */
-    padding: 0;
+    padding: 1rem;
+    border-radius: 8px;
+    transition: all .2s linear;
 }
 
 
@@ -71,7 +73,7 @@ p:hover {
 }
 
 #levelName {
-    font-size: 2rem;
+    font-size: 1.5rem;
     padding: 1rem;
     border: none;
     border-radius: 8px;
