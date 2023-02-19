@@ -125,7 +125,7 @@ class LeaderBoard {
             // Ajout de tous les span dans la div classement
             let div = document.getElementById(id)
             div.append(spanNumber)
-            div.appendx(spanName)
+            div.append(spanName)
             div.append(spanPoints)
             document.querySelector('div.contain').append(hr)
     

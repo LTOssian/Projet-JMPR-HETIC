@@ -160,6 +160,7 @@ h1 span:hover {
     height: 10%;
     width: 10%;
     background-image: url('../Runner_assets/img/rat.gif');
+    background-color: #B85156;
     background-size: contain;
     bottom: var(--b_player);
 }
@@ -168,6 +169,7 @@ h1 span:hover {
     height: 20%;
     width: 10%;
     background-image: url('../Runner_assets/img/pigeon.gif');
+    background-color: #FAFAFA;
     background-size: contain;
     top: 50%;
 }
@@ -208,15 +210,17 @@ h1 span:hover {
 }
 
 .BBlockL {
-    width: 75px;
+    width: 35px;
     height: 45px;
     background-size: contain;
+    background-color: #B85156;
 }
 
 .CBlockL {
     background-size: contain;
-    width: 75px;
+    width: 35px;
     height: 45px;
+    background-color: #FAFAFA;
 }
 
 .running{

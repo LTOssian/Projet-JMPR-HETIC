@@ -108,7 +108,6 @@ export class Runner {
         document.querySelector('body').innerHTML = "";
         this.gameStatus = false;
         clearInterval(this.gameInterval)
-        clearInterval(this.loseInterval)
         clearInterval(this.collisionInterval)
     }
 
@@ -133,7 +132,7 @@ export class Runner {
 
         if (this.currentGame["assets"]["A"]) {
             document.querySelector(`.A`).style.backgroundImage = `url(${this.currentGame["assets"]["A"]})`;
-        }
+        } 
         if (this.currentGame["assets"]["B"]) {
             document.querySelector(`.B`).style.backgroundImage = `url(${this.currentGame["assets"]["B"]})`;
         }
@@ -242,30 +241,26 @@ export class Runner {
         })
     }
 
-    lose () {
-        let playerTop = parseInt(window.getComputedStyle(document.querySelector('.player')).getPropertyValue("top"));
-        let blockLeft = parseInt(window.getComputedStyle(document.querySelector('.blockPos')).getPropertyValue('right'));
-        if (blockLeft < 20 && blockLeft > 0 && playerTop >= 21) {
-            alert('stop')
-        }
-    }
-
     detectCollision() {
         // Récupérer les positions des éléments
         let playerRect = document.querySelector(".player").getBoundingClientRect();
         
-        // Vérifier si les éléments se chevauchent
-        
-
         document.querySelectorAll(".blockPos").forEach((block) => {
-            console.log(block)
+            if (!block.classList.contains('ABlockL')) {
+                let blockRect = block.getBoundingClientRect();
+                if (playerRect.left < blockRect.right && playerRect.right > blockRect.left && playerRect.top < blockRect.bottom && playerRect.bottom > blockRect.top) {
+                    // Les éléments se chevauchent
+                    console.log('Collision détectée!');
+                    this.gameStatus = false;
+                    document.querySelector('.player').classList.add('dead');
+                    document.querySelector('.road').classList.add('pause');
+                    clearInterval(this.gameInterval)
+                    deathSoundEffectAsset.play();
+                    document.querySelector('.menu').style.display = "flex";
+                    this.gameStatus = false;
 
-            let blockRect = block.getBoundingClientRect();
-
-            if (playerRect.left < blockRect.right && playerRect.right > blockRect.left && playerRect.top < blockRect.bottom && playerRect.bottom > blockRect.top) {
-                // Les éléments se chevauchent
-                console.log('Collision détectée!');
-                }
+                    }
+            }
         })
         }
 
@@ -284,7 +279,6 @@ export class Runner {
                 playerScore = 0;
                 this.playerMovement();
                 this.gameInterval = setInterval(this.scoreRegister, 200);
-                this.loseInterval = setInterval(this.lose, 10);
                 this.collisionInterval = setInterval(this.detectCollision, 100);
             }
         })
@@ -303,15 +297,26 @@ export class Runner {
         })
 
         document.querySelector('.restart').addEventListener('click', () => {
+            
             clearInterval(this.gameInterval)
             clearInterval(this.loseInterval)
+            clearInterval(this.collisionInterval)
             
             document.querySelector('.startGame').style.display = "inline-block"
             this.gameStatus = false;
             document.querySelector('.road').classList.toggle('pause');
             document.querySelector('.menu').style.display = "none";
+            document.querySelector('.player').classList.remove('playerrunning');
+            document.querySelector('.player').classList.remove("jumping")
+            document.querySelector('.player').classList.remove('crouching')
+            document.querySelector('.player').classList.remove('dead')
+            home.stages[home.currentStage].addPlayer(document.querySelector('#playerName').value,  playerScore);
+            playerScore = 0;
+            this.gameStatus = false;
+            this.pauseStatus = false;
+            this.unmount();
+            home.mount();
             
-            document.querySelector('#playerName')
         })
     }
 }
