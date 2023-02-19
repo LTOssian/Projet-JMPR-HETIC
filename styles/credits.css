@@ -34,6 +34,7 @@ h1 {
     text-shadow: 8px 0 black, -2px 0 black, 0 2px black, 0 -2px black, 2px 2px black, -2px -2px black, 2px -2px black, -2px 2px black;
     cursor: default;
     text-align: center;
+    margin: 1rem;
 }
 
 h1 span {
@@ -153,6 +154,14 @@ li {
 .first-li {
     padding-top: 0;
 }
+
+#creditToHomePage{
+    background-color: none;
+    background: none;
+    border-radius: none;
+    cursor: pointer;
+}
+
 
 @media (max-width: 540px) {
     body {
