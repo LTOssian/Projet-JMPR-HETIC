@@ -119,7 +119,7 @@ class HomePage {
 
             }
         }   
-             
+
     carouselEvents () {
         document.getElementById('prevName').addEventListener('click', (e) => {
             if (this.currentStage == 0) {

@@ -137,7 +137,6 @@ export class Runner {
         if (this.currentGame["assets"]["C"]) {
             document.querySelector(`.C`).style.backgroundImage = `url(${this.currentGame["assets"]["C"]})`;
         }
-
     }
 
     updateGameVariables() {
@@ -219,16 +218,15 @@ export class Runner {
                 if (this.pauseStatus) {
                     this.pauseStatus = false;
                     this.gameInterval = setInterval(this.scoreRegister, 200)
-                    document.querySelector('.menu').style.display('none');
+                    document.querySelector('.menu').style.display = "none";
                 } else {
                     this.pauseStatus = true;
                     clearInterval(this.gameInterval);
-                    document.querySelector('.menu').style.display('block');
-
+                    document.querySelector('.menu').style.display = "flex";
                 }
             }
-          })
 
+          })
 
         document.addEventListener("keyup", (e)=>{
             if (e.key == options.jumpKey && this.gameStatus == true && this.pauseStatus == false){
@@ -239,6 +237,7 @@ export class Runner {
                 document.querySelector(".player").classList.remove('crouching')
                 this.iscrounching = false;
             }
+            
         })
     }
 
@@ -248,6 +247,10 @@ export class Runner {
         if (blockLeft < 20 && blockLeft > 0 && playerTop >= 21) {
             alert('stop')
         }
+    }
+
+    winEvent () {
+
     }
 
     listenEvents() {
@@ -267,6 +270,30 @@ export class Runner {
                 this.gameInterval = setInterval(this.scoreRegister, 200);
                 this.loseInterval = setInterval(this.lose, 10);
             }
+        })
+
+        document.querySelector('.continue').addEventListener('click', (e) => {
+            document.querySelector('.road').classList.toggle('pause');
+                if (this.pauseStatus) {
+                    this.pauseStatus = false;
+                    this.gameInterval = setInterval(this.scoreRegister, 200)
+                    document.querySelector('.menu').style.display = "none";
+                } else {
+                    this.pauseStatus = true;
+                    clearInterval(this.gameInterval);
+                    document.querySelector('.menu').style.display = "flex";
+                }
+        })
+
+        document.querySelector('.restart').addEventListener('click', () => {
+            clearInterval(this.gameInterval)
+            clearInterval(this.loseInterval)
+            
+            document.querySelector('.startGame').style.display = "inline-block"
+            this.gameStatus = false;
+            document.querySelector('.road').classList.toggle('pause');
+            document.querySelector('.menu').style.display = "none";
+            
         })
     }
 }
