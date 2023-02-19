@@ -109,10 +109,9 @@ export class Runner {
         this.updateGameVariables();
         this.currentGame = gameData;
         this.processGameData()
-        this.startEvent();
         this.soundDesign();
         this.homeRoute();
-
+        this.listenEvents();
     }
 
     processGameData () {
@@ -155,13 +154,9 @@ export class Runner {
         document.querySelector("#play_m").volume = .2;
         jumpSoundEffectAsset.volume = .25;
         deathSoundEffectAsset.volume = .2;
-
-        document.addEventListener('keydown', (e)=> {
-            if (e.key == options.musicStatus) {
-                this.toggleMusic()
-            }
-        })
     }
+
+    
 
     toggleMusic() {
         if (this.soundStatus) {
@@ -176,33 +171,31 @@ export class Runner {
         }
     }
 
-    addPlayerScore(difficulty) {
-        this.playerScore += difficulty;
+    addPlayerScore() {
+        this.playerScore += 1;
     }
 
-    scoreRegister() {    
-        console.log(this.currentGame["difficulty"]); 
-        this.addPlayerScore(this.currentGame["difficulty"])
-        document.querySelector('.score').innerHTML = `Score : <strong>${this.playerScore++}</strong>`;
+    scoreRegister() {
+        document.querySelector('.score').innerHTML = `Score : <strong>${this.playerScore}</strong>`;
     }
 
-    startEvent () {
-        console.log(this.currentGame); 
-        document.addEventListener("keydown", (e) => {
-            if ((e.code == "Space") && (!this.gameStatus) && (!this.pauseStatus)) {
+    listenEvents() {
+        document.addEventListener("keydown", e => {
+            if (e.key == options.musicStatus) {
+                this.toggleMusic()
+            }
+            if ((e.key == "r") && (!this.gameStatus) && (!this.pauseStatus)) {
                 document.querySelector(".road").classList.add('running');
                 document.querySelector(".player").classList.add('playerrunning');
                 document.querySelector(".player").classList.remove('dead');
                 document.querySelector(".startGame").style.display = "none";
+                console.log(this.playerScore)
                 this.gameStatus = true;
                 this.playerScore = 0;
                 this.gameInterval = setInterval(this.scoreRegister, 200);
             }
-        }, {once: true})
+        })
     }
-
-
-
 }
 
 // pb de variables, j'ai l'impression que pour l'instant va falloir tout update avec le document.querySelector pour que ça fonctionne
