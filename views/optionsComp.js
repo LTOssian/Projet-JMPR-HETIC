@@ -69,7 +69,7 @@ class Options {
     }
 
     titleAnimation () {
-        const title = "OPTION"
+        const title = "OPTIONS"
         for(let i = 0; i < title.length; i++) {
             document.querySelector('h1').innerHTML += `<span>${title[i]}<span>`
         }
