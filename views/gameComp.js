@@ -16,6 +16,7 @@ let gameInterval = null;
 let playerScore = 0;
 
 
+
 export class Runner {
     constructor(){
         this.html = `
@@ -35,17 +36,17 @@ export class Runner {
                 <span class="score">Score : <strong id="scoreOutput">0</strong></span>
                 <div class="gameOver">
                     <span class="GO">Game Over</span>
-                    <span class="PS">Press "space"</span>
+                    <span class="PS">Press "R"</span>
                 </div>
                 <div class="startGame">
                     <span class="GO">Start Game</span>
-                    <span class="PS">Press "space"</span>
+                    <span class="PS">Press "R"</span>
                 </div>
                 <span class="gameOver"></span>
                 <div class="player"></div>
-                <div id="block" class="A"></div>
-                <div id="block" class="B"></div> 
-                <div id="block" class="C"></div>
+                <div class="A block"></div>
+                <div class="B block"></div> 
+                <div class="C block"></div>
                 <div class="menu">
                     <button class="continue">CONTINUE</button>
                     <button class="restart">RESTART</button>
@@ -122,6 +123,17 @@ export class Runner {
         if (this.currentGame["assets"]["background"]) {
             backgroundView.style.backgroundImage = `url(${this.currentGame["assets"]["background"]})`;
         }
+
+        if (this.currentGame["assets"]["A"]) {
+            document.querySelector(`.A`).style.backgroundImage = `url(${this.currentGame["assets"]["A"]})`;
+        }
+        if (this.currentGame["assets"]["B"]) {
+            document.querySelector(`.B`).style.backgroundImage = `url(${this.currentGame["assets"]["B"]})`;
+        }
+        if (this.currentGame["assets"]["C"]) {
+            document.querySelector(`.C`).style.backgroundImage = `url(${this.currentGame["assets"]["C"]})`;
+        }
+
     }
 
     updateGameVariables() {
@@ -163,7 +175,7 @@ export class Runner {
         if (this.soundStatus) {
             console.log("music off")
             document.querySelector("#play_m").currentTime = 0; 
-            document.querySelector("#play_m").pause()
+            document.querySelector("#play_m").pause();
             this.soundStatus = false
         } else {
             console.log("music on")
@@ -173,8 +185,69 @@ export class Runner {
     }
 
     scoreRegister() {
-        playerScore += 1;
-        document.querySelector('.score').innerHTML = `Score : <strong>${playerScore}</strong>`;
+            playerScore += 1;
+            document.querySelector('.score').innerHTML = `Score : <strong>${playerScore}</strong>`;
+    }
+
+    generateBlocks () {
+        console.log("ça joue")
+
+        // for (let i = 0; i < this.currentGame["blocks"].length; i++) {
+        //     console.log(this.currentGame["blocks"][i]["type"])
+        //     if (this.currentGame["blocks"][i]["type"] == "A") {
+        //         document.querySelector('.A').classList.add("spawn");
+        //         setTimeout(() => {
+        //             document.querySelector('.A').classList.remove("spawn");
+        //         }, 1000)
+        //     } else if (this.currentGame["blocks"][i]["type"] == "B") {
+        //         document.querySelector('.B').classList.add("spawn");
+        //         setTimeout(() => {
+        //             document.querySelector('.B').classList.remove("spawn");
+        //         }, 1000)
+        //     } else {
+        //         document.querySelector('.C').classList.add("spawn");
+        //         setTimeout(() => {
+        //             document.querySelector('.C').classList.remove("spawn");
+        //         }, 1000)
+        //     }
+        // }
+
+        this.currentGame["blocks"].forEach(element => {
+            while (setInterval(() => {
+                let blockB_left = parseInt(getComputedStyle(document.querySelector('.B')).getPropertyValue("left"));
+            },10)
+            ) {
+                
+            }
+        });
+
+
+    }
+
+    playerMovement () {
+        document.addEventListener("keydown", (e)=>{
+            if (e.key == options.jumpKey && this.gameStatus == true && this.pauseStatus == false) {
+              if(document.querySelector(".player").classList != "jumping"){
+                document.querySelector(".player").classList.add("jumping")
+                jumpSoundEffectAsset.play()
+              }
+            }
+            if (e.key == options.crouchKey && this.gameStatus == true && this.pauseStatus == false) {
+                document.querySelector(".player").style.height = '15%';
+                document.querySelector(".player").classList.add('crouching');
+                this.isCrouching = true; 
+            }
+          })
+        document.addEventListener("keyup", (e)=>{
+            if (e.key == options.jumpKey && this.gameStatus == true && this.pauseStatus == false){
+                document.querySelector(".player").classList.remove("jumping")
+                }
+            if (e.key == options.crouchKey && this.gameStatus == true && this.pauseStatus == false) {
+                document.querySelector(".player").style.height = '20%'
+                document.querySelector(".player").classList.remove('crouching')
+                this.iscrounching = false;
+            }
+        })
     }
 
     listenEvents() {
@@ -183,12 +256,15 @@ export class Runner {
                 this.toggleMusic()
             }
             if ((e.key == "r") && (!this.gameStatus) && (!this.pauseStatus)) {
+                this.generateBlocks();
+                document.querySelector('.B').classList.add('spawn');
                 document.querySelector(".road").classList.add('running');
                 document.querySelector(".player").classList.add('playerrunning');
                 document.querySelector(".player").classList.remove('dead');
                 document.querySelector(".startGame").style.display = "none";
                 this.gameStatus = true;
                 playerScore = 0;
+                this.playerMovement();
                 this.gameInterval = setInterval(this.scoreRegister, 200);
             }
         })

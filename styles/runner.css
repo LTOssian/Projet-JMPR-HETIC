@@ -151,12 +151,12 @@ h1 span:hover {
     }
 }
 
- #block{
+ .block{
     position: absolute;
     right: -10%;
 }
 
- #block.B{
+.block.B{
     height: 10%;
     width: 10%;
     background-image: url('../Runner_assets/img/rat.gif');
@@ -164,7 +164,7 @@ h1 span:hover {
     bottom: var(--b_player);
 }
 
- #block.C{
+.block.C{
     height: 20%;
     width: 10%;
     background-image: url('../Runner_assets/img/pigeon.gif');
