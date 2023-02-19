@@ -21,7 +21,6 @@ class LeaderBoard {
                     </div>
                 </div>
 
-
             </div>
             `;
         this.css = `

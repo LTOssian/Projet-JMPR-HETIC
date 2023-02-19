@@ -4,7 +4,7 @@ class Credits {
     constructor() {
         this.html = `
         <main>
-            <div class="home-logo"></div>
+            <button id="creditToHomePage"><img src="assets/homeIcon.svg" alt="Home page"></button>
             <h1></h1>
             <div class="window-container">
                 <div class="card runner">
@@ -74,6 +74,7 @@ class Credits {
     }
     methods(){
         this.titleAnimation()
+        this.homeRoute()
     }
 }
 

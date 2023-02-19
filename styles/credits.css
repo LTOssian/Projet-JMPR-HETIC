@@ -160,6 +160,9 @@ li {
     background: none;
     border-radius: none;
     cursor: pointer;
+    border: none;
+    position: absolute;
+    top: 40px; left: 40px;
 }
 
 
