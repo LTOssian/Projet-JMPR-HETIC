@@ -82,6 +82,9 @@ h1 span:hover {
     background: none;
     border-radius: none;
     cursor: pointer;
+    position: absolute;
+    top: 100px; left: 225px;
+
 }
 #option-container-box {
     width: 80%;
