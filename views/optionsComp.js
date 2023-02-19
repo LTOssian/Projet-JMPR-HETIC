@@ -3,9 +3,9 @@ import {home} from './homeComp.js'
 class Options {
     constructor() {
         this.html = `
-        <button id="optionsToHomePage"><img src="./assets/homeIcon.svg" alt="Home page"></button>
         <div id="container">
         <h2 id="page-title">Options</h2>
+        <button id="optionsToHomePage"><img src="./assets/homeIcon.svg" alt="Home page"></button>
         <div id="option-container">
             <div id="option-container-box">
                 <h3 id="subtitle">Keybinds</h3>
