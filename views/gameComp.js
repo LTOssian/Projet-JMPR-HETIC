@@ -102,7 +102,7 @@ export class Runner {
         document.querySelector('head').innerHTML = "";
         document.querySelector('body').innerHTML = "";
         this.gameStatus = false;
-        clearInterval(gameInterval)
+        clearInterval(this.gameInterval)
     }
 
     methods(gameData) {
@@ -192,7 +192,7 @@ export class Runner {
 
                 this.gameStatus = true;
 
-                gameInterval = setInterval(this.scoreRegister, 200);
+                this.gameInterval = setInterval(this.scoreRegister, 200);
             }
         }, {once: true})
     }
