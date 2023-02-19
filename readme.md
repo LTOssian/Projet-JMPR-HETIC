@@ -10,7 +10,7 @@ As part of a group project, we developped an interactive "Runner" game where eac
 - Leaderboard
 - Options / Change of keys
 - Ability to edit your levels
-- Ability to import your own music, background, and different blocks
+- Ability to import your own music, background and different blocks
 
 ## Editor Menu
 
