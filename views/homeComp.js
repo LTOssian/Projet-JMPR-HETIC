@@ -98,7 +98,6 @@ class HomePage {
                         const content = JSON.parse(fReader.result);
                         this.stages.push(new Stage(content["title"], content))
                         this.stages[this.stages.length - 1].game = new Runner();
-                        document.querySelector('#currentLoads').innerHTML = `Currently ${this.stages.length} level(s) loaded`
                         this.currentStage = this.stages.length - 1
                         this.updateCarousel()
                         
@@ -115,6 +114,7 @@ class HomePage {
             if (this.stages.length) {
                 document.getElementById('levelName').innerHTML = `<span>${this.stages[this.currentStage].name}</span>`;
                 document.getElementById('carousel').style.background = `url(${this.stages[this.currentStage].jsonData["assets"]["background"]})`;
+                document.querySelector('#currentLoads').innerHTML = `Currently ${this.stages.length} level(s) loaded`
             }
         }        
     carouselEvents () {
