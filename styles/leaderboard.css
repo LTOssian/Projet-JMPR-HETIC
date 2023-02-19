@@ -9,6 +9,17 @@ body{
     background-image: url("../assets/AdobeStock_566252812.png");
 	background-size: cover;
 	background-position: center;
+    background-attachment: fixed;
+}
+
+@-moz-document url-prefix() {
+    body {
+        scrollbar-width: none;
+    }
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 h1 {
