@@ -106,6 +106,7 @@ export class Runner {
         document.querySelector('body').innerHTML = "";
         this.gameStatus = false;
         clearInterval(this.gameInterval)
+        clearInterval(this.loseInterval)
     }
 
     methods(gameData) {
@@ -241,6 +242,14 @@ export class Runner {
         })
     }
 
+    lose () {
+        let playerTop = parseInt(window.getComputedStyle(document.querySelector('.player')).getPropertyValue("top"));
+        let blockLeft = parseInt(window.getComputedStyle(document.querySelector('.blockPos')).getPropertyValue('right'));
+        if (blockLeft < 20 && blockLeft > 0 && playerTop >= 21) {
+            alert('stop')
+        }
+    }
+
     listenEvents() {
         document.addEventListener("keydown", e => {
             if (e.key == options.musicStatus) {
@@ -256,6 +265,7 @@ export class Runner {
                 playerScore = 0;
                 this.playerMovement();
                 this.gameInterval = setInterval(this.scoreRegister, 200);
+                this.loseInterval = setInterval(this.lose, 10);
             }
         })
     }
