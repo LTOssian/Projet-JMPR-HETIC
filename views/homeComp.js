@@ -169,8 +169,8 @@ class HomePage {
             if (this.stages.length > 0) {
                 this.unnmount;
 
-                this.stages[this.currentStage].game.mount(this.stages[this.currentStage].data);
-                this.stages[this.currentStage].game.methods();
+                this.stages[this.currentStage].game.mount();
+                this.stages[this.currentStage].game.methods(this.stages[this.currentStage].data);
             } else {
                 console.error('Importez une map pour jouer')
             }

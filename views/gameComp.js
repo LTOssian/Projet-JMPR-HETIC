@@ -82,12 +82,9 @@ export class Runner {
         document.getElementById('muteRule').innerHTML = `mute: <strong>${options.musicStatus}</strong>`;
     }
 
-    mount (gameData) {
+    mount () {
         this.updateCSS();
         this.updateHTML();
-        this.updateGameVariables();
-        this.currentGame = gameData;
-        this.processGameData()
     }
 
     unmount () {
@@ -95,8 +92,11 @@ export class Runner {
         document.querySelector('body').innerHTML = "";
     }
 
-    methods() {
-        this.soundDesign();
+    methods(gameData) {
+        this.updateGameVariables();
+        this.currentGame = gameData;
+        this.processGameData()
+
         this.homeRoute();
         this.startEvent();
     }
@@ -105,7 +105,6 @@ export class Runner {
         for(let i = 0; i < this.currentGame["title"].length; i++) {
             document.querySelector('.title').innerHTML += `<span>${this.currentGame["title"][i]}<span>`
         }
-
         if (this.currentGame["assets"]["background"]) {
             this.backgroundView.style.backgroundImage = `url(${this.currentGame["assets"]["background"]})`;
         }
