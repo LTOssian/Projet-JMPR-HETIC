@@ -23,7 +23,7 @@ body {
 }
 
 #subtitle {
-    color: #FFFFFF;
+    /* color: #FFFFFF; */
     -webkit-text-stroke: 1px #1E1E1E;
     text-shadow: px 2px 5px rgba(0, 0, 0, 0.5);
  }
@@ -37,6 +37,7 @@ body {
     align-items: center;
     gap: 30px;
 }
+
 #option-container {
     width: 70%;
     height: 60%;
@@ -48,9 +49,12 @@ body {
     justify-content: center;
     align-items: center;
 }
+
 #optionsToHomePage {
-    position: absolute;
     cursor: pointer;
+    margin: 0;
+    border: 0;
+    padding: 0;
 }
 #option-container-box {
     width: 80%;
