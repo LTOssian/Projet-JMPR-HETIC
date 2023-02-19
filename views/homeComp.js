@@ -183,6 +183,7 @@ class HomePage {
             e.preventDefault();
             this.unnmount;
             editor.mount();
+            editor.methods();
         })
     }
 
@@ -191,6 +192,7 @@ class HomePage {
             e.preventDefault();
             this.unnmount;
             credits.mount();
+            credits.methods();
         })
     }
 }

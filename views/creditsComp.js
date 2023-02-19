@@ -5,7 +5,7 @@ class Credits {
         this.html = `
         <main>
             <div class="home-logo"></div>
-            <h1>CREDITS</h1>
+            <h1></h1>
             <div class="window-container">
                 <div class="card runner">
                     <h2 class="card-name">Runner</h2>
@@ -65,6 +65,16 @@ class Credits {
              home.mount()
          })
      }
+
+    titleAnimation () {
+        const title = "CREDITS"
+        for(let i = 0; i < title.length; i++) {
+            document.querySelector('h1').innerHTML += `<span>${title[i]}<span>`
+        }
+    }
+    methods(){
+        this.titleAnimation()
+    }
 }
 
 export const credits = new Credits ();
