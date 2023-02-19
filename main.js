@@ -241,11 +241,9 @@ class EditorTemplate {
         let output = "";
         for (const [key, _] of Object.entries(document.getElementById('radioSet').children)) {
             const radios = document.getElementsByName(`block${key}`);
-            let currentCheckStatus = false;
             for (let i = 0; i < radios.length; i++) {
                 if (radios[i].checked) {
                     output += `{"type": "${radios[i].value}"},`
-                    currentCheckStatus = true;
                     break;
                 }
             }
@@ -341,7 +339,7 @@ class EditorPage {
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>OPTIONS | PARISRUNNER</title>
+        <title>EDITOR | PARISRUNNER</title>
         <link rel="icon" type="image/x-icon" href="./Runner_assets/img/favicon_1.ico">
         <link rel="stylesheet" href="./styles/editor.css">
         `;
@@ -369,8 +367,10 @@ class EditorPage {
     methods () {
         this.titleAnimation();
         this.homeRoute();
-        this.eventListeners();
         this.initRadios();
+        this.eventListeners();
+        this.downloadHandler();
+        this.uploadHandler();
     }
 
     titleAnimation () {
@@ -394,7 +394,6 @@ class EditorPage {
         });
     
         const deleteBtns = document.querySelectorAll('.deleteBtn');
-        console.log(deleteBtns)
     
         for (let i = 0; i < deleteBtns.length; i++) {
             const btn = deleteBtns[i];
@@ -405,30 +404,89 @@ class EditorPage {
                 document.querySelector('#q_blocks').value = q_blocks - 1;
                 this.level.updatePreview();
                 } else {
-                    console.error(`Maps under 10 blocks are not valid`);
+                    console.warn(`Vous êtes arrivé au minimum de blocs (10)`);
                 }
             })
-        }  
+        }
+    }
+
+    downloadHandler () {
+        document.getElementById('downloadBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            const DL = document.createElement("a");
+            const content = this.level._preview;
+            const file = new Blob([content], {type:'json'});
+            DL.href = URL.createObjectURL(file);
+            DL.download = `${this.level.title}_${this.level.creator}_map.jmpr`;
+            DL.click();
+            URL.revokeObjectURL(DL.href);
+        })
+    }
+
+    uploadHandler () {
+        document.getElementById('uploadBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            let inputFile = document.createElement(`input`)
+            inputFile.type = "file";
+            inputFile.accept = "json";
+            inputFile.addEventListener('change', (e) => {
+                if (inputFile.files) {
+                    const file = inputFile.files[0];
+                    const fReader = new FileReader();
+                    fReader.onload = () => {
+                        const content = JSON.parse(fReader.result);
+                        console.log(content["assets"], typeof content["assets"])
+                        document.getElementById('title').value = content["title"];
+                        document.getElementById('q_blocks').value = content["blocks"].length;
+                        document.getElementById('creator').value = content["creator"];
+                        document.getElementById('difficulty').value = content["difficulty"]
+                        document.getElementById('num').innerHTML = content["difficulty"];
+                        this.addRadio(document.getElementById('q_blocks'));
+                        for (let i = 0; i < content["blocks"].length; i++) {
+                            document.getElementById(`${content["blocks"][i]["type"]}${i}`).checked = true;
+                        }
+                        document.getElementById('melody').value = content["assets"]["melody"]
+                        document.getElementById('background').value = content["assets"]["background"]
+                        document.getElementById('blocksA').value = content["assets"]["A"]
+                        document.getElementById('blocksB').value = content["assets"]["B"]
+                        document.getElementById('blocksC').value = content["assets"]["C"]
+                        
+                        this.level.updatePreview();
+                    }
+                    fReader.readAsText(file);
+                }
+                new Promise(function(resolve) {
+                    setTimeout(() => {
+                        console.log(inputFile.files);
+                        resolve();
+                    }, 1000);
+                  })
+                  .then(() => {
+                    inputFile = window._protected_reference = undefined;
+                  });
+            })
+            inputFile.click();
+        })
     }
 
     addRadio (e) {
         document.getElementById('radioSet').innerHTML = "";
-    for (let i = 0; i < e.value; i++) {
-        const customBlock = `
-        <div class="block" id="block${i}">
-            <input type="radio" id="A${i}" name="block${i}" value="A" name="A">
-            <label for="A${i}">A</label>
-            <input type="radio" id="B${i}" name="block${i}" value="B" name="B">
-            <label for="B${i}">B</label>
-            <input type="radio" id="C${i}" name="block${i}" value="C" name="C">
-            <label for="C${i}">C</label>
-            <button id="delete${i}" class="deleteBtn">X</button>
-        </div>
-        `
+        for (let i = 0; i < e.value; i++) {
+            const customBlock = `
+            <div class="block" id="block${i}">
+                <input type="radio" id="A${i}" name="block${i}" value="A" name="A">
+                <label for="A${i}">A</label>
+                <input type="radio" id="B${i}" name="block${i}" value="B" name="B">
+                <label for="B${i}">B</label>
+                <input type="radio" id="C${i}" name="block${i}" value="C" name="C">
+                <label for="C${i}">C</label>
+                <button id="delete${i}" class="deleteBtn">X</button>
+            </div>
+            `
         document.getElementById('radioSet').innerHTML += customBlock;
     }
     this.eventListeners();
-    }
+}
 
     initRadios () {
         this.addRadio(document.getElementById('q_blocks'));
@@ -436,6 +494,8 @@ class EditorPage {
             this.addRadio(document.getElementById('q_blocks'));
         })
     }
+
+
 
     homeRoute () {
         document.getElementById('editorToHomePage').addEventListener('click', (e) => {
