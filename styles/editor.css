@@ -178,4 +178,12 @@ button:hover {
     #assetsSet input {
         width: 250px;
     }
+    
+    #editorToHomePage {
+        background: none;
+        padding: 0;
+        position: absolute;
+        top: 10px;
+        left: 50px;
+    }
 }
