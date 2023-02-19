@@ -1,24 +1,24 @@
 # <p align="center">PARISRUNNER</p>
 
-## Contexte
+## Context
 
-Dans le cadre d'un projet de goupe, nous avons développé un jeu de type 'Runner' interractif, où chaque utilisateur a la possibilité d'éditer ses propres niveaux.
+As part of a group project, we developed an interactive "Runner" game where each user has the ability to edit their own levels.
 
 ## Features
 
-- 5 niveaux de difficulté
+- 5 levels of difficulty
 - Leaderboard
-- Options / Changement de touches
-- Possibilité d'éditer ses niveaux
-- Possibilité d'importer sa propre musique, son background et les différents blocs
+- Options / Change of keys
+- Ability to edit your levels
+- Ability to import your own music, background, and different blocks
 
-## Menu Editeur
+## Editor Menu
 
-L'édition des niveaux se fait dans un menu dédié. La map est fractionnée sur la longeur, et l'utilisateur doit choisir entre trois types de blocs (vide, bloc bas, bloc haut) pour chaque fraction de map. Après avoir entré son pseudo, le joueur devra choisir le niveau de diffulté ainsi que le nombre de blocks mis à disposition. De plus, l'utilisateur peut choisir via un URL, de rajouter de la musique à son niveau, ainsi qu'une image de fond qui défilera lors de la phase de jeu.
+Level editing is done in a dedicated menu. The map is divided along its length, and the user must choose between three types of blocks (empty, low block, high block) for each fraction of the map. After entering their username, the player must choose the difficulty level as well as the number of blocks available. In addition, the user can choose, via a URL, to add music to their level, as well as a background image that will scroll during the game phase.
 
 ## Leaderboard
 
-L'onglet Leaderboard permet de consulter le score des différents joueurs, afin d'ajouter une dimention compétitive au jeu.
+The Leaderboard tab allows you to view the scores of different players, adding a competitive dimension to the game.
 
 ## Tech
 
@@ -26,13 +26,19 @@ L'onglet Leaderboard permet de consulter le score des différents joueurs, afin 
 - CSS
 - JavaScript
 
+## Bugs and not-done-yet features
+
+- The music toggle is called 'n' times, 'n' being the number of times you enter the game
+- Collisions are missing
+- The runner works, but it is not connected to the rest of the site however, the version of the runner connected to the site can display the blocks of the selected level
+
 ## Contributing
 
 - Louisan TCHITOULA
 - Djédjé GBOBLE
-- Alessandro Garau
+- Alessandro GARAU
 - Benjamin SCHINKEL
 - Alexis JANUS
 - Julien HEITZ
 - Victor CHABEAU
-- Mohamed SALAMANTO
+- Mohamed SALAMATAO
