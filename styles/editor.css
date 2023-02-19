@@ -124,6 +124,7 @@ button:hover {
 }
 
 #previewLayout {
+    font-family: 'VT323', sans-serif;
     width: 350px;
     overflow: hidden;
     background-color: rgba(250,250,250,.7);
