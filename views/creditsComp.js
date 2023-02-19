@@ -5,7 +5,7 @@ class Credits {
         this.html = `
         <main>
             <button id="creditToHomePage"><img src="assets/homeIcon.svg" alt="Home page"></button>
-            <h1>test</h1>
+            <h1></h1>
             <div class="window-container">
                 <div class="card runner">
                     <h2 class="card-name">Runner</h2>
