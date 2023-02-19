@@ -7,7 +7,7 @@ class LeaderBoard {
 
             <div class="container">
                 
-                <h1>LEADERBOARD</h1>
+                <h1></h1>
                 <div class = "button">
                 </div>
                 <div class="gris">
@@ -55,6 +55,7 @@ class LeaderBoard {
 
     methods () {
         this.displayButton()
+        this.titleAnimation()
         this.homeRoute()
 
     }
@@ -67,6 +68,13 @@ class LeaderBoard {
         })
     }
     
+    titleAnimation () {
+        const title = "LEADERBOARD"
+        for(let i = 0; i < title.length; i++) {
+            document.querySelector('h1').innerHTML += `<span>${title[i]}<span>`
+        }
+    }
+
     scoreboard2(stage){
         // Map to array
         let stageArray = Array.from(stage.leaderboard)

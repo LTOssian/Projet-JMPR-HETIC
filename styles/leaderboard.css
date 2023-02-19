@@ -11,18 +11,26 @@ body{
 	background-position: center;
 }
 
-h1{
-    display: flex;
-    justify-content: center;
-    align-content: center;
-    font-family: 'VT323', monospace;
-    font-size: 180px;
-    -webkit-text-stroke: 0.01px #1E1E1E;
+h1 {
+    font-family: 'VT323', sans-serif;
+    font-weight: 400;
+    font-size: 8rem;
+    color: white;
+    text-shadow: 8px 0 black, -2px 0 black, 0 2px black, 0 -2px black, 2px 2px black, -2px -2px black, 2px -2px black, -2px 2px black;
+    cursor: default;
+    text-align: center;
+}
 
-    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+h1 span {
+    display: inline;
+    position: relative;
+    transition: bottom .1s ease-in-out;
+    bottom: 0px;
+}
 
-    
-    color: #FFFFFF;
+h1 span:hover {
+    color: #C1666B;
+    bottom: 10px;
 }
 
 button{
