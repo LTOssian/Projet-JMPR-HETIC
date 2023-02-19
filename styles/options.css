@@ -7,8 +7,10 @@
 }
 body {
     background-image: url("../assets/AdobeStock_566252812.png");
-    background-size: 100vw 100vh;
-    background-position: left right top bottom;
+    background-size: cover;
+    height: 100vh;
+    width: 100vw;
+    background-position: top;
     font-family: 'Inter', sans-serif;
     background-repeat: no-repeat;
 }
