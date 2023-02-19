@@ -35,7 +35,7 @@ class HomePage {
                 <label for="loadButton" class="gridButton"><span>LOAD</span></label>
                 <button class="gridButton" id="editorPage"><span>EDITOR</span></button>
                 <button class="gridButton" id="optionPage"><span>OPTIONS</span></button>
-                <a href="https://obamasixgaming.github.io/Credit-page1/" target="_blank" class="gridButton" id="creditPage"><span>CREDITS</span></a>
+                <button class="gridButton" id="creditPage"><span>CREDIT</span></button>
                 <button class="gridButton" id="scorePage">
                     <img src="./assets/Trophy.png" width="50px">
                 </button>
@@ -77,6 +77,7 @@ class HomePage {
         this.optionRoute();
         this.runnerRoute();
         this.editorRoute();
+        this.creditRoute();
     }
 
     unnmount () {
@@ -185,7 +186,15 @@ class HomePage {
             editor.methods();
         })
     }
-    
+
+    creditRoute () {
+        document.getElementById('creditPage').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.unnmount;
+            credits.mount();
+            credits.methods();
+        })
+    }
 }
 
 export const home = new HomePage();
