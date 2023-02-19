@@ -49,7 +49,7 @@ class HomePage {
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>HOME | PARISRUNNER</title>
         <link rel="icon" type="image/x-icon" href="../Runner_assets/img/favicon_1.ico">
-        <link rel="stylesheet" href="./styles/home.css">
+        <link rel="stylesheet" href="../styles/home.css">
         ` 
         this.stages= [];
         this.currentStage = 0;
