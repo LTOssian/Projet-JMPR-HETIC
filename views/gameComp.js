@@ -50,7 +50,7 @@ export class Runner {
                 <div class="C block"></div>
                 <div class="menu">
                     <button class="continue">CONTINUE</button>
-                    <input type="text" placeholder="ENTRE TON PSEUDO">
+                    <input type="text" id="playerName" placeholder="ENTRE TON PSEUDO">
                     <button class="restart">SUBMIT SCORE</button>
                 </div>
             </div>
@@ -74,6 +74,7 @@ export class Runner {
         this.isCrouching = false;
         this.soundStatus = false;
         this.gameInterval = null;
+        this.collisionInterval = null;
         this._player = null;
     }
 
@@ -108,6 +109,7 @@ export class Runner {
         this.gameStatus = false;
         clearInterval(this.gameInterval)
         clearInterval(this.loseInterval)
+        clearInterval(this.collisionInterval)
     }
 
     methods(gameData) {
@@ -248,6 +250,25 @@ export class Runner {
         }
     }
 
+    detectCollision() {
+        // Récupérer les positions des éléments
+        let playerRect = document.querySelector(".player").getBoundingClientRect();
+        
+        // Vérifier si les éléments se chevauchent
+        
+
+        document.querySelectorAll(".blockPos").forEach((block) => {
+            console.log(block)
+
+            let blockRect = block.getBoundingClientRect();
+
+            if (playerRect.left < blockRect.right && playerRect.right > blockRect.left && playerRect.top < blockRect.bottom && playerRect.bottom > blockRect.top) {
+                // Les éléments se chevauchent
+                console.log('Collision détectée!');
+                }
+        })
+        }
+
     listenEvents() {
         document.addEventListener("keydown", e => {
             if (e.key == options.musicStatus) {
@@ -264,6 +285,7 @@ export class Runner {
                 this.playerMovement();
                 this.gameInterval = setInterval(this.scoreRegister, 200);
                 this.loseInterval = setInterval(this.lose, 10);
+                this.collisionInterval = setInterval(this.detectCollision, 100);
             }
         })
 
@@ -289,6 +311,7 @@ export class Runner {
             document.querySelector('.road').classList.toggle('pause');
             document.querySelector('.menu').style.display = "none";
             
+            document.querySelector('#playerName')
         })
     }
 }
