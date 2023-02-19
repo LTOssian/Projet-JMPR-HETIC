@@ -118,7 +118,8 @@ class HomePage {
                 document.querySelector('#currentLoads').innerHTML = `Currently ${this.stages.length} level(s) loaded`
 
             }
-        }        
+        }   
+             
     carouselEvents () {
         document.getElementById('prevName').addEventListener('click', (e) => {
             if (this.currentStage == 0) {

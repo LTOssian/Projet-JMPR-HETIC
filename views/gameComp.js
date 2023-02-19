@@ -154,6 +154,7 @@ export class Runner {
         }
         this.toggleMusic()
         document.querySelector("#play_m").volume = .2;
+        console.log("ok")
         jumpSoundEffectAsset.volume = .25;
         deathSoundEffectAsset.volume = .2;
 
