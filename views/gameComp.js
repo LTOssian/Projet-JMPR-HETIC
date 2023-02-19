@@ -50,7 +50,8 @@ export class Runner {
                 <div class="C block"></div>
                 <div class="menu">
                     <button class="continue">CONTINUE</button>
-                    <button class="restart">RESTART</button>
+                    <input type="text" placeholder="ENTRE TON PSEUDO">
+                    <button class="restart">SUBMIT SCORE</button>
                 </div>
             </div>
         </div>
@@ -172,8 +173,6 @@ export class Runner {
         deathSoundEffectAsset.volume = .2;
     }
 
-    
-
     toggleMusic() {
         if (this.soundStatus) {
             document.querySelector("#play_m").currentTime = 0; 
@@ -247,10 +246,6 @@ export class Runner {
         if (blockLeft < 20 && blockLeft > 0 && playerTop >= 21) {
             alert('stop')
         }
-    }
-
-    winEvent () {
-
     }
 
     listenEvents() {
