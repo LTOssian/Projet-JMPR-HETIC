@@ -1,0 +1,171 @@
+@font-face {
+    font-family: "Inter";
+    src: url("../assets/Inter-VariableFont_slnt,wght.ttf");
+    font-family: "VT323";
+    src: url("../assets/VT323-Regular.ttf");
+}
+
+html {
+    font-family: "Inter", sans-serif;
+    overflow: hidden;
+    margin: 0;
+}
+
+body {
+    margin: 0px;
+    background-image: url("../assets/AdobeStock_566252812.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: 100vh;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-items: space-evenly;
+}
+
+h1 {
+    align-self: center;
+    font-family: "VT323", sans-serif;
+    font-size: 120px;
+    color: #FAFAFA;
+    text-shadow: 10px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
+    1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
+    padding: 5px;
+    margin: 0;
+}
+
+.window-container {
+    display: flex;
+    width: 97vw;
+    height: 79vh;
+    justify-content: center;
+    align-self: flex-end;
+    flex-direction: row;
+    margin-left: 1.38vw;
+    margin-right: 1.38vw;
+    background: rgba(250, 250, 250, 0.8);
+    border: 3px solid #5D6D8C;
+    border-radius: 20px;
+    flex: none;
+    flex-grow: 0;
+    z-index: 2;
+    overflow: hidden;
+}
+
+.card {
+    align-self: center;
+    justify-self: space-evenly;
+}
+
+.runner {
+    box-sizing: border-box;
+    margin-left: 3.5vw;
+    width: 41vw;
+    height: 69vh;
+    left: 52vw;
+    top: 5vh;
+    background: rgba(250, 250, 250, 0.8);
+    border: 2px solid #1E1E1E;
+    border-radius: 8px;
+    order: 1;
+}
+
+.editor {
+    box-sizing: border-box;
+    margin-right: 3.5vw;
+    width: 41vw;
+    height: 69vh;
+    left: 3.5vw;
+    top: 5vh;
+    background: rgba(250, 250, 250, 0.8);
+    border: 2px solid #1E1E1E;
+    border-radius: 8px;
+    order: 3;
+}
+
+.separate {
+    display: flex;
+    justify-self: center;
+    margin: 0 1.3vw;
+    width: 38vw;
+    height: 1vh;
+    background-color: #5D6D8C;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+#vertical {
+    align-self: center;
+    justify-content: center;
+    order: 2;
+    width: 1vh;
+    height: 73vh;
+    background-color: #5D6D8C;
+    border-radius: 20px;
+    margin: 0 3.47vw;
+}
+
+.card-name {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    color: #FAFAFA;
+    text-shadow: 2px 0 #000000, -2px 0 #000000, 0 2px #000000, 0 -2px #000000,
+    1px 1px #000000, -1px -1px #000000, 1px -1px #000000, -1px 1px #000000;
+    margin-bottom: 14px;
+}
+
+ul {
+    flex-direction: column;
+    align-content: center;
+    bottom: -1rem;
+    list-style: none;
+    margin-top: 6vh;
+}
+
+ul li::before {
+    content: "\2022";
+    color: #C1666B;
+    font-weight: bold;
+    display: inline-block;
+    width: 1em;
+    margin-left: -1em;
+    font-size: larger;
+}
+
+li {
+    padding: 5vh 0;
+}
+
+.first-li {
+    padding-top: 0;
+}
+
+@media (max-width: 540px) {
+    body {
+        height: 100vh;
+    }
+
+    .window-container {
+        margin-left: 0.7vw;
+        margin-right: 0.7vw;
+    }
+
+    h1 {
+        font-size: 100px;
+    }
+
+    ul {
+        margin-top: 3vh;
+        font-size: 0.6rem;
+        margin-left: 3.5vw;
+        padding-left: 2.5vw;
+    }
+
+    li {
+        padding: 5vh 0;
+    }
+}
