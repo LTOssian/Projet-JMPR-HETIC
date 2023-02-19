@@ -136,7 +136,6 @@ export class Runner {
         startView = document.querySelector(".startGame");
         continueCTA = document.querySelector(".continue");
         restartCTA = document.querySelector(".restart");
-
     }
 
     homeRoute () {
@@ -154,7 +153,6 @@ export class Runner {
         }
         this.toggleMusic()
         document.querySelector("#play_m").volume = .2;
-        console.log("ok")
         jumpSoundEffectAsset.volume = .25;
         deathSoundEffectAsset.volume = .2;
 
@@ -178,25 +176,33 @@ export class Runner {
         }
     }
 
-    scoreRegister() {                 
-        this.playerScore++;
-        document.querySelector('.score').innerHTML = `Score : <strong>${this.playerScore}</strong>`;   
+    addPlayerScore(difficulty) {
+        this.playerScore += difficulty;
+    }
+
+    scoreRegister() {    
+        console.log(this.currentGame["difficulty"]); 
+        this.addPlayerScore(this.currentGame["difficulty"])
+        document.querySelector('.score').innerHTML = `Score : <strong>${this.playerScore++}</strong>`;
     }
 
     startEvent () {
+        console.log(this.currentGame); 
         document.addEventListener("keydown", (e) => {
             if ((e.code == "Space") && (!this.gameStatus) && (!this.pauseStatus)) {
                 document.querySelector(".road").classList.add('running');
                 document.querySelector(".player").classList.add('playerrunning');
                 document.querySelector(".player").classList.remove('dead');
                 document.querySelector(".startGame").style.display = "none";
-
                 this.gameStatus = true;
-
+                this.playerScore = 0;
                 this.gameInterval = setInterval(this.scoreRegister, 200);
             }
         }, {once: true})
     }
+
+
+
 }
 
 // pb de variables, j'ai l'impression que pour l'instant va falloir tout update avec le document.querySelector pour que ça fonctionne
