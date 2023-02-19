@@ -186,7 +186,7 @@ h1 span:hover {
 
  .road{
     background-image: url('../Runner_assets/img/backgroung_game.png');
-    background-size: contain;
+    background-size: cover;
     height: 100%;
     position: absolute;
     bottom: 0;
@@ -201,27 +201,22 @@ h1 span:hover {
     bottom: 75px;
 }
 
-#Louisan {
-    background-color: black;
-    width: 100px;
-    height: 100px;
-}
-
 .ABlockL {
-    width: 150px;
+    width: 120px;
     height: 45px;
+    background-size: contain;
 }
 
 .BBlockL {
-    width: 100px;
+    width: 75px;
     height: 45px;
-    background-color: #B85156;
+    background-size: contain;
 }
 
 .CBlockL {
-    width: 100px;
+    background-size: contain;
+    width: 75px;
     height: 45px;
-    background-color: #FAFAFA;
 }
 
 .running{
@@ -320,6 +315,7 @@ h1 span:hover {
         font-size: 5rem;
     }
 }
+
 
 @media screen and (max-width: 650px), (max-height: 500px) {
     :root{

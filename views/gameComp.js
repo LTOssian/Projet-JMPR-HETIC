@@ -176,28 +176,26 @@ export class Runner {
 
     toggleMusic() {
         if (this.soundStatus) {
-            console.log("music off")
             document.querySelector("#play_m").currentTime = 0; 
             document.querySelector("#play_m").pause();
             this.soundStatus = false
         } else {
-            console.log("music on")
             document.querySelector("#play_m").play();
             this.soundStatus = true;
         }
     }
 
     scoreRegister() {
-            playerScore += 1;
+            playerScore++;
             document.querySelector('.score').innerHTML = `Score : <strong>${playerScore}</strong>`;
     }
 
     generateBlocks () {
         document.querySelector('.road').style.width = `${100 * this.currentGame["blocks"].length}`
         this.currentGame["blocks"].forEach((block) => {
-            console.log(block, "ca fart")
             let currentBlock = document.createElement("div")
             currentBlock.classList = `${block["type"]}BlockL blockPos`
+            currentBlock.style.backgroundImage = `url(${this.currentGame['assets'][block["type"]]})`
             document.querySelector('.road').append(currentBlock);
         })
     }
@@ -215,7 +213,22 @@ export class Runner {
                 document.querySelector(".player").classList.add('crouching');
                 this.isCrouching = true; 
             }
+            if (e.key == options.pauseKey && this.gameStatus) {
+                document.querySelector('.road').classList.toggle('pause');
+                if (this.pauseStatus) {
+                    this.pauseStatus = false;
+                    this.gameInterval = setInterval(this.scoreRegister, 200)
+                    document.querySelector('.menu').style.display('none');
+                } else {
+                    this.pauseStatus = true;
+                    clearInterval(this.gameInterval);
+                    document.querySelector('.menu').style.display('block');
+
+                }
+            }
           })
+
+
         document.addEventListener("keyup", (e)=>{
             if (e.key == options.jumpKey && this.gameStatus == true && this.pauseStatus == false){
                 document.querySelector(".player").classList.remove("jumping")
