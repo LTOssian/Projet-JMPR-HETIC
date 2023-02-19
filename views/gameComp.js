@@ -102,6 +102,7 @@ export class Runner {
         document.querySelector('head').innerHTML = "";
         document.querySelector('body').innerHTML = "";
         this.gameStatus = false;
+        clearInterval(gameInterval)
     }
 
     methods(gameData) {
@@ -176,7 +177,7 @@ export class Runner {
         }
     }
 
-    scoreRegister() {                   
+    scoreRegister() {                 
         this.playerScore++;
         document.querySelector('.score').innerHTML = `Score : <strong>${this.playerScore}</strong>`;   
     }
@@ -184,16 +185,16 @@ export class Runner {
     startEvent () {
         document.addEventListener("keydown", (e) => {
             if ((e.code == "Space") && (!this.gameStatus) && (!this.pauseStatus)) {
-                console.log("")
                 document.querySelector(".road").classList.add('running');
                 document.querySelector(".player").classList.add('playerrunning');
                 document.querySelector(".player").classList.remove('dead');
                 document.querySelector(".startGame").style.display = "none";
 
                 this.gameStatus = true;
+
                 gameInterval = setInterval(this.scoreRegister, 200);
             }
-        })
+        }, {once: true})
     }
 }
 
