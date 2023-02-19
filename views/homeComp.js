@@ -77,6 +77,7 @@ class HomePage {
         this.optionRoute();
         this.runnerRoute();
         this.editorRoute();
+        this.creditRoute();
     }
 
     unnmount () {
@@ -186,7 +187,16 @@ class HomePage {
             editor.methods();
         })
     }
-    
+
+    creditRoute () {
+        document.getElementById('creditPage').addEventListener('click', (e) => {
+            e.preventDefault();
+            this.unnmount;
+            credits.mount();
+            credits.methods();
+        })
+    }
+ 
 }
 
 export const home = new HomePage();

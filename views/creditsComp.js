@@ -57,6 +57,11 @@ class Credits {
         document.querySelector('head').innerHTML = "";
         document.querySelector('body').innerHTML = "";
     }
+    
+    methods(){
+        this.titleAnimation()
+        this.homeRoute()
+    }
 
     homeRoute(){
         let goHome = document.querySelector('#creditToHomePage')
@@ -72,10 +77,7 @@ class Credits {
             document.querySelector('h1').innerHTML += `<span>${title[i]}<span>`
         }
     }
-    methods(){
-        this.titleAnimation()
-        this.homeRoute()
-    }
+    
 }
 
 export const credits = new Credits ();
