@@ -13,6 +13,8 @@ let startView ;
 let continueCTA ;
 let restartCTA ;
 let gameInterval = null;
+let playerScore = 0;
+
 
 export class Runner {
     constructor(){
@@ -64,7 +66,6 @@ export class Runner {
         ` 
 
         this.currentGame;
-        this.playerScore = 0;
         this.gameStatus = false;
         this.pauseStatus = false;
         this.isCrouching = false;
@@ -171,12 +172,9 @@ export class Runner {
         }
     }
 
-    addPlayerScore() {
-        this.playerScore += 1;
-    }
-
     scoreRegister() {
-        document.querySelector('.score').innerHTML = `Score : <strong>${this.playerScore}</strong>`;
+        playerScore += 1;
+        document.querySelector('.score').innerHTML = `Score : <strong>${playerScore}</strong>`;
     }
 
     listenEvents() {
@@ -189,9 +187,8 @@ export class Runner {
                 document.querySelector(".player").classList.add('playerrunning');
                 document.querySelector(".player").classList.remove('dead');
                 document.querySelector(".startGame").style.display = "none";
-                console.log(this.playerScore)
                 this.gameStatus = true;
-                this.playerScore = 0;
+                playerScore = 0;
                 this.gameInterval = setInterval(this.scoreRegister, 200);
             }
         })
