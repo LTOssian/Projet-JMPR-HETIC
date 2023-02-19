@@ -187,11 +187,41 @@ h1 span:hover {
  .road{
     background-image: url('../Runner_assets/img/backgroung_game.png');
     background-size: contain;
-    width: calc(var(--w_viewgame) * 20);
     height: 100%;
     position: absolute;
     bottom: 0;
     left: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.blockPos {
+    position: relative;
+    bottom: 75px;
+}
+
+#Louisan {
+    background-color: black;
+    width: 100px;
+    height: 100px;
+}
+
+.ABlockL {
+    width: 150px;
+    height: 45px;
+}
+
+.BBlockL {
+    width: 100px;
+    height: 45px;
+    background-color: #B85156;
+}
+
+.CBlockL {
+    width: 100px;
+    height: 45px;
+    background-color: #FAFAFA;
 }
 
 .running{

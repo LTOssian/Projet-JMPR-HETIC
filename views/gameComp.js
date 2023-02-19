@@ -32,7 +32,8 @@ export class Runner {
 
             </div>
             <div class='viewgame'>
-                <div class="road"></div>
+                <div class="road">
+                </div>
                 <span class="score">Score : <strong id="scoreOutput">0</strong></span>
                 <div class="gameOver">
                     <span class="GO">Game Over</span>
@@ -114,6 +115,8 @@ export class Runner {
         this.soundDesign();
         this.homeRoute();
         this.listenEvents();
+        this.generateBlocks();
+
     }
 
     processGameData () {
@@ -190,38 +193,13 @@ export class Runner {
     }
 
     generateBlocks () {
-        console.log("ça joue")
-
-        // for (let i = 0; i < this.currentGame["blocks"].length; i++) {
-        //     console.log(this.currentGame["blocks"][i]["type"])
-        //     if (this.currentGame["blocks"][i]["type"] == "A") {
-        //         document.querySelector('.A').classList.add("spawn");
-        //         setTimeout(() => {
-        //             document.querySelector('.A').classList.remove("spawn");
-        //         }, 1000)
-        //     } else if (this.currentGame["blocks"][i]["type"] == "B") {
-        //         document.querySelector('.B').classList.add("spawn");
-        //         setTimeout(() => {
-        //             document.querySelector('.B').classList.remove("spawn");
-        //         }, 1000)
-        //     } else {
-        //         document.querySelector('.C').classList.add("spawn");
-        //         setTimeout(() => {
-        //             document.querySelector('.C').classList.remove("spawn");
-        //         }, 1000)
-        //     }
-        // }
-
-        this.currentGame["blocks"].forEach(element => {
-            while (setInterval(() => {
-                let blockB_left = parseInt(getComputedStyle(document.querySelector('.B')).getPropertyValue("left"));
-            },10)
-            ) {
-                
-            }
-        });
-
-
+        document.querySelector('.road').style.width = `${100 * this.currentGame["blocks"].length}`
+        this.currentGame["blocks"].forEach((block) => {
+            console.log(block, "ca fart")
+            let currentBlock = document.createElement("div")
+            currentBlock.classList = `${block["type"]}BlockL blockPos`
+            document.querySelector('.road').append(currentBlock);
+        })
     }
 
     playerMovement () {
@@ -256,8 +234,7 @@ export class Runner {
                 this.toggleMusic()
             }
             if ((e.key == "r") && (!this.gameStatus) && (!this.pauseStatus)) {
-                this.generateBlocks();
-                document.querySelector('.B').classList.add('spawn');
+                console.log(this.currentGame)
                 document.querySelector(".road").classList.add('running');
                 document.querySelector(".player").classList.add('playerrunning');
                 document.querySelector(".player").classList.remove('dead');
