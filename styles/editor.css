@@ -146,6 +146,8 @@ button:hover {
 #editorToHomePage {
     background: none;
     padding: 0;
+    position: absolute;
+    top: 55px; left: 190px;
 }
 
 @media only screen and (max-width: 1180px) {
