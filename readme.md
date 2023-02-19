@@ -2,7 +2,7 @@
 
 ## Context
 
-As part of a group project, we developed an interactive "Runner" game where each user has the ability to edit their own levels.
+As part of a group project, we developped an interactive "Runner" game where each user has the ability to edit their own levels.
 
 ## Features
 

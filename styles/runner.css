@@ -12,8 +12,8 @@
     --c_grey : #888888;
     --c_black: #1E1E1E;
     --f_size_ref : 20px;
-    --w_viewgame : 1280px;
-    --h_viewgame : 720px;
+    --w_viewgame : calc(1280px / 2);
+    --h_viewgame : calc(720px / 2);
     --b_player : 17%;
 }
 
@@ -309,7 +309,7 @@ h1 span:hover {
 }
 
 /* RESPONSIVE */
-@media screen and (max-width: 1300px), (max-height: 1000px){
+@media screen and (max-width: 1300px){
     :root{
         --w_viewgame : calc(1280px / 2);
         --h_viewgame : calc(720px / 2);
@@ -321,7 +321,7 @@ h1 span:hover {
 }
 
 
-@media screen and (max-width: 650px), (max-height: 500px) {
+@media screen and (max-width: 650px) {
     :root{
         --w_viewgame : calc(1280px / 4);
         --h_viewgame : calc(720px / 4);
@@ -338,7 +338,7 @@ h1 span:hover {
     }
 }
 
-@media screen and (max-height: 500px), (max-width: 440px){
+@media screen and (max-height: 500px){
     .title{
         display: none;
     }

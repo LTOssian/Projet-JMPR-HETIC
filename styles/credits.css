@@ -1,9 +1,5 @@
-@font-face {
-    font-family: "Inter";
-    src: url("../assets/Inter-VariableFont_slnt,wght.ttf");
-    font-family: "VT323";
-    src: url("../assets/VT323-Regular.ttf");
-}
+@import url('https://fonts.googleapis.com/css2?family=VT323&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500&display=swap');
 
 html {
     font-family: "Inter", sans-serif;
