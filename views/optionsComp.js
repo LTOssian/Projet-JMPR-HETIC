@@ -4,7 +4,7 @@ class Options {
     constructor() {
         this.html = `
         <div id="container">
-        <h2 id="page-title">Options</h2>
+        <h1></h1>
         <button id="optionsToHomePage"><img src="./assets/homeIcon.svg" alt="Home page"></button>
         <div id="option-container">
             <div id="option-container-box">
@@ -52,6 +52,7 @@ class Options {
         this.crouchKey = 'ArrowDown';
         this.pauseKey = 'p';
         this.musicStatus = 'm';
+        this.currentOption
     }
 
     updateCSS () {
@@ -67,6 +68,13 @@ class Options {
         this.updateHTML();
     }
 
+    titleAnimation () {
+        const title = "OPTION"
+        for(let i = 0; i < title.length; i++) {
+            document.querySelector('h1').innerHTML += `<span>${title[i]}<span>`
+        }
+
+    }
     unmount () {
         document.querySelector('head').innerHTML = "";
         document.querySelector('body').innerHTML = "";
@@ -76,6 +84,7 @@ class Options {
         this.homeRoute();
         this.loadCurrentKeys();
         this.loadEvents();
+        this.titleAnimation();
     }
 
     homeRoute () {
