@@ -40,6 +40,7 @@ export class Runner {
         <audio src="./Runner_assets/sounds/jump_sound.mp3" id="jump_se"></audio>
         <audio src="./Runner_assets/sounds/dead_sound.mp3" id="dead_se"></audio>
         `
+
         this.css = `
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -47,7 +48,8 @@ export class Runner {
         <title>GAME | PARISRUNNER</title>
         <link rel="stylesheet" href="./styles/runner.css">
         <link rel="icon" type="image/x-icon" href="./Runner_assets/img/favicon_1.ico">
-        `  
+        ` 
+
         this.currentGame;
         this.playerScore = 0;
         this.gameStatus = false;
@@ -55,18 +57,17 @@ export class Runner {
         this.isCrouching = false;
         this.soundStatus = false;
 
-        this.gameView ;
-        this.player ;
-        this.scoreUI ;
-        this.gameOverView ;
-        this.bakgroundView ;
-        this.menuView ;
-        this.musicAsset ;
-        this.jumpSoundEffectAsset ;
-        this.deathSoundEffectAsset ;
-        this.startView ;
-        this.continueCTA ;
-        this.restartCTA ;
+        this.gameView;
+        this.player;
+        this.scoreUI;
+        this.gameOverView;
+        this.backgroundView;
+        this.menuView;
+        this.jumpSoundEffectAsset;
+        this.deathSoundEffectAsset;
+        this.startView;
+        this.continueCTA;
+        this.restartCTA;
     }
 
     updateCSS () {
@@ -84,7 +85,9 @@ export class Runner {
     mount (gameData) {
         this.updateCSS();
         this.updateHTML();
-        this.currentGame = gameData
+        this.updateGameVariables();
+        this.currentGame = gameData;
+        this.processGameData()
     }
 
     unmount () {
@@ -93,32 +96,33 @@ export class Runner {
     }
 
     methods() {
-        this.processGameData()
-        this.updateGameVariables();
         this.soundDesign();
         this.homeRoute();
         this.startEvent();
-
     }
 
     processGameData () {
         for(let i = 0; i < this.currentGame["title"].length; i++) {
             document.querySelector('.title').innerHTML += `<span>${this.currentGame["title"][i]}<span>`
         }
+
+        if (this.currentGame["assets"]["background"]) {
+            this.backgroundView.style.backgroundImage = `url(${this.currentGame["assets"]["background"]})`;
+        }
     }
 
-    updateGameVariables () {
+    updateGameVariables () {  
         this.gameView = document.querySelector('.viewgame');
         this.player = document.querySelector('.player');
-        this.scoreUI = document.querySelector(".score")
-        this.gameOverView = document.querySelector(".gameOver")
-        this.bakgroundView = document.querySelector(".road")
-        this.menuView = document.querySelector(".menu")
-        this.jumpSoundEffectAsset = document.querySelector("#jump_se")
-        this.deathSoundEffectAsset = document.querySelector("#dead_se")
-        this.startView = document.querySelector(".startGame")
-        this.continueCTA = document.querySelector(".continue")
-        this.restartCTA = document.querySelector(".restart")
+        this.scoreUI = document.querySelector(".score");
+        this.gameOverView = document.querySelector(".gameOver");
+        this.backgroundView = document.querySelector(".road");
+        this.menuView = document.querySelector(".menu");
+        this.jumpSoundEffectAsset = document.querySelector("#jump_se");
+        this.deathSoundEffectAsset = document.querySelector("#dead_se");
+        this.startView = document.querySelector(".startGame");
+        this.continueCTA = document.querySelector(".continue");
+        this.restartCTA = document.querySelector(".restart");
     }
     
     homeRoute () {
@@ -159,15 +163,13 @@ export class Runner {
         }
     }
 
-    
-
     startEvent () {
         document.addEventListener("keydown", (e) => {
             if ((e.code == "Space") && (!this.gameStatus) && (!this.pauseStatus)) {
                 console.log("ok ca joue")
+                this.backgroundView.classList.add('running')
                 this.gameStatus = true;
                 this.scoreUI = 0;
-
             }
         })
     }
