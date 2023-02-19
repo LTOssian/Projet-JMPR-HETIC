@@ -194,7 +194,7 @@ h1 span:hover {
     left: 0;
 }
 
- .running{
+.running{
     animation: roadAnimate 20s linear infinite;
 }
 

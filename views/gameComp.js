@@ -1,6 +1,19 @@
 import {home} from './homeComp.js'
 import { options } from './optionsComp.js';
 
+let gameView ;
+let player ;
+let scoreUI ;
+let gameOverView ;
+let backgroundView ;
+let menuView ;
+let jumpSoundEffectAsset ;
+let deathSoundEffectAsset ;
+let startView ;
+let continueCTA ;
+let restartCTA ;
+let gameInterval = null;
+
 export class Runner {
     constructor(){
         this.html = `
@@ -17,7 +30,7 @@ export class Runner {
             </div>
             <div class='viewgame'>
                 <div class="road"></div>
-                <span class="score">Score : <strong>0</strong></span>
+                <span class="score">Score : <strong id="scoreOutput">0</strong></span>
                 <div class="gameOver">
                     <span class="GO">Game Over</span>
                     <span class="PS">Press "space"</span>
@@ -56,20 +69,18 @@ export class Runner {
         this.pauseStatus = false;
         this.isCrouching = false;
         this.soundStatus = false;
-
-        this.gameView;
-        this.player;
-        this.scoreUI;
-        this.gameOverView;
-        this.backgroundView;
-        this.menuView;
-        this.jumpSoundEffectAsset;
-        this.deathSoundEffectAsset;
-        this.startView;
-        this.continueCTA;
-        this.restartCTA;
+        this.gameInterval = null;
+        this._player = null;
     }
 
+    get player() {
+        return this._player;
+    }
+
+    set player(value) {
+        this._player = value;
+    }
+    
     updateCSS () {
         document.querySelector('head').innerHTML = this.css;
     }
@@ -90,15 +101,17 @@ export class Runner {
     unmount () {
         document.querySelector('head').innerHTML = "";
         document.querySelector('body').innerHTML = "";
+        this.gameStatus = false;
     }
 
     methods(gameData) {
         this.updateGameVariables();
         this.currentGame = gameData;
         this.processGameData()
-
-        this.homeRoute();
         this.startEvent();
+        this.soundDesign();
+        this.homeRoute();
+
     }
 
     processGameData () {
@@ -106,24 +119,25 @@ export class Runner {
             document.querySelector('.title').innerHTML += `<span>${this.currentGame["title"][i]}<span>`
         }
         if (this.currentGame["assets"]["background"]) {
-            this.backgroundView.style.backgroundImage = `url(${this.currentGame["assets"]["background"]})`;
+            backgroundView.style.backgroundImage = `url(${this.currentGame["assets"]["background"]})`;
         }
     }
 
-    updateGameVariables () {  
-        this.gameView = document.querySelector('.viewgame');
+    updateGameVariables() {
+        gameView = document.querySelector('.viewgame');
         this.player = document.querySelector('.player');
-        this.scoreUI = document.querySelector(".score");
-        this.gameOverView = document.querySelector(".gameOver");
-        this.backgroundView = document.querySelector(".road");
-        this.menuView = document.querySelector(".menu");
-        this.jumpSoundEffectAsset = document.querySelector("#jump_se");
-        this.deathSoundEffectAsset = document.querySelector("#dead_se");
-        this.startView = document.querySelector(".startGame");
-        this.continueCTA = document.querySelector(".continue");
-        this.restartCTA = document.querySelector(".restart");
+        scoreUI = document.querySelector(".score");
+        gameOverView = document.querySelector(".gameOver");
+        backgroundView = document.querySelector(".road");
+        menuView = document.querySelector(".menu");
+        jumpSoundEffectAsset = document.querySelector("#jump_se");
+        deathSoundEffectAsset = document.querySelector("#dead_se");
+        startView = document.querySelector(".startGame");
+        continueCTA = document.querySelector(".continue");
+        restartCTA = document.querySelector(".restart");
+
     }
-    
+
     homeRoute () {
         document.getElementById('runnerToHomePage').addEventListener("click", () => {
             this.unmount();
@@ -139,8 +153,8 @@ export class Runner {
         }
         this.toggleMusic()
         document.querySelector("#play_m").volume = .2;
-        this.jumpSoundEffectAsset.volume = .25;
-        this.deathSoundEffectAsset.volume = .2;
+        jumpSoundEffectAsset.volume = .25;
+        deathSoundEffectAsset.volume = .2;
 
         document.addEventListener('keydown', (e)=> {
             if (e.key == options.musicStatus) {
@@ -162,14 +176,26 @@ export class Runner {
         }
     }
 
+    scoreRegister() {                   
+        this.playerScore++;
+        document.querySelector('.score').innerHTML = `Score : <strong>${this.playerScore}</strong>`;   
+    }
+
     startEvent () {
         document.addEventListener("keydown", (e) => {
             if ((e.code == "Space") && (!this.gameStatus) && (!this.pauseStatus)) {
-                console.log("ok ca joue")
-                this.backgroundView.classList.add('running')
+                console.log("")
+                document.querySelector(".road").classList.add('running');
+                document.querySelector(".player").classList.add('playerrunning');
+                document.querySelector(".player").classList.remove('dead');
+                document.querySelector(".startGame").style.display = "none";
+
                 this.gameStatus = true;
-                this.scoreUI = 0;
+                gameInterval = setInterval(this.scoreRegister, 200);
             }
         })
     }
 }
+
+// pb de variables, j'ai l'impression que pour l'instant va falloir tout update avec le document.querySelector pour que ça fonctionne
+//lors du unmount 
