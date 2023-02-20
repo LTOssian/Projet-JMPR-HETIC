@@ -1,4 +1,4 @@
-# <p align="center">PARISRUNNER</p>
+# <center>PARISRUNNER</center>
 
 ## Context
 
