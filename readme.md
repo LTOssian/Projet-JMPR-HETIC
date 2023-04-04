@@ -1,4 +1,4 @@
-# <center>PARISRUNNER</center>
+# <center>PARISRUNNER (19.5/20) </center>
 
 ## Context
 
@@ -14,11 +14,11 @@ As part of a group project, we developed an interactive "Runner" game where each
 ## Editor Menu
 
 Level editing is done in a dedicated menu. The map is divided along its length, and the user must choose between three types of blocks (empty, low block, high block) for each fraction of the map. The user can bring their own assets to their map, meaning the background, the melody, and even the blocks images.
-The editor alos provides a visualisation feature, when loading a background it will show on the blocks selection grid, and also in the previsualization section the code of the map will show.
+The editor also provides a visualisation feature, when loading a background it will show on the blocks selection grid, and also in the previsualization section the code of the map will show.
 
 ## Leaderboard
 
-The Leaderboard tab allows you to view the scores of different players, adding a competitive dimension to the game.
+The Leaderboard tab allows you to view the scores of different players on the different maps, adding a competitive dimension to the game.
 
 ## Tech
 
